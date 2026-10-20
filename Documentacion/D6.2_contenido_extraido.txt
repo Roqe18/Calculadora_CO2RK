@@ -1,0 +1,308 @@
+=== DOCUMENTO: D6.2_CuantificacionBiomasaVivaIDAF.docx ===
+
+--- PARRAFOS Y SECCIONES ---
+[Normal] Informe metodológico: Modelización de Flujos de Carbono en biomasa viva y en suelos en Monte Alcornocal (Andalucía y Alentejo) y en Hayedo (Marche)
+[Normal] OCTUBRE 2026
+[Normal] INICIATIVA LIFE. Medio Ambiente y Cambio Climático. Proyecto financiado en un 60% por la Unión Europea.
+[Normal] Las opiniones expresadas en esta publicación no reflejan necesariamente la posición oficial de la Comisión Europea o de la Unión Europea
+[TOC Heading] ÍNDICE
+[toc 1] 1.	IDENTIFICACIÓN DE LAS PARCELAS	4
+[toc 1] 2.	METODOLOGÍA DE TOMA DE DATOS EN CAMPO	5
+[toc 2] 2.1.	Levantamiento de parcelas con escáner láser móvil(MLS)	5
+[toc 2] 2.2.	Levantamiento de parcelas con vehículo aérea no tripulado (UAV)	6
+[toc 1] 3.	METODOLOGÍA DE CÁLCULO DEL STOCK DE CARBONO EN BIOMASA VIVA	7
+[toc 2] 3.1.	CÁLCULO DE STOCK DE CARBONO A PARTIR DE BIOMASA AÉREA VIVA EN PARCELAS MONOESPECÍFICAS Y PLURIESPECÍFICAS	7
+[toc 2] 3.2.	PROCESAMIENTO DE LOS DATOS OBTENIDOS CON MLS Y OBTENCIÓN MEDICIONES DENDROMÉTRICAS	10
+[toc 2] 3.3.	PROCESAMIENTO DE LOS DATOS OBTENIDOS CON UAV Y DELIMITACIÓN DE LAS COPAS ARBÓREAS	12
+[toc 3] 3.3.1.	Obtención de métricas LiDAR e imágenes a partir de los vuelos UAV	12
+[toc 3] 3.3.2.	Delimitación de las copas de los árboles en la zona de vuelo UAV	13
+[toc 2] 3.4.	MODELIZACIÓN DE VARIABLES DENDROMÉTRICAS Y CÁLCULO DEL CARBONO EN BIOMASA VIVA	14
+[toc 1] 4.	FICHAS STOCK DE CARBONO POR PARCELA	19
+[toc 1] 5.	MÉTODOS VALIDADOS DE MEDICIÓN DE STOCK DE CARBONO EN BIOMASA VIVA	19
+[toc 1] 6. ALGORITMOS DE MEDICIÓN EX ANTE	21
+[toc 2] 6.1	MEDICIÓN MASAS MONOESPECÍFICAS	21
+[toc 2] 6.2	MEDICIÓN MASAS PLURIESPECÍFICAS	26
+[toc 1] ANEXO 1. FICHAS DE CARACTERIZACIÓN DE LAS PARCELAS EMPLEADAS PARA LA CUANTIFICACIÓN DEL STOCK DE CARBONO EN LA BIOMASA AÉREA.	28
+[TOC Heading] ÍNDICE DE FIGURAS
+[table of figures] Figura 1. Mapa de localización de las parcelas con vuelo UAV, con escaneos MLS y de inventario tradicional.	4
+[table of figures] Figura 2. Mapa de localización parcelas levantadas MLS.	6
+[table of figures] Figura 3. Mapa de localización de las parcelas de vuelo UAV.	7
+[table of figures] Figura 4. Esquema del flujo de trabajo del proceso de generación de la base de datos MLS-UAV, modelización y cálculo de la biomasa viva en una zona de vuelo.	15
+[table of figures] Figura 5.(a) Distribución diamétrica de la muestra de verificación por parcela, fondo gris indica el rango de clases empleado por Ruiz Peinado en la creación de sus ecuaciones alométricas. (b) Biomasa leñosa aérea estimada mediante Rayextract (QSM) frente a la obtenida con las ecuaciones de Ruiz Peinado, en escala logarítmica.	20
+[table of figures] Figura 6. (a) Diferencia relativa entre WQSM y WRP en función del diámetro normal, con el ajuste ln (WQSM/ WRP) = -1,17 + 0,39 ln d y su intervalo de confianza del 95%. (b) Relación entre los valores obtenidos mediante Ruiz Peinado y modelos QSM con relación al diámetro nominal en escala logarítmica (n = 113).	21
+[table of figures] Figura 7. Absorción de carbono media por pie en función de la edad aproximada de la plantación (n=85 observaciones).	23
+[table of figures] Figura 8. Absorción de carbono media por pie en función de la edad aproximada de la plantación, con transformación logarítmica aplicada en ambas variables (n=85 observaciones).	24
+[table of figures] Figura 9. Ajuste del modelo lineal tonCO2eq/pie=f(Edad, potencialidad) sobre todos los datos (n=85 observaciones) con indicación de los intervalos de confianza del modelo lineal implementado.	25
+[table of figures] Figura 10. Predicciones de stock de carbono por pie en función de la potencialidad para el periodo 2021-2040 y SSP 370 y diferentes edades.	26
+[Normal] ÍNDICE DE TABLAS
+[table of figures] Tabla 1. Estadísticos de las parcelas. DBH: diámetro normal. H: altura. N: Densidad de pies. SD: desviación típica.	4
+[table of figures] Tabla 2. Ecuaciones de biomasa por fracciones para Quercus suber (Ruiz-Peinado et al., 2012).	8
+[table of figures] Tabla 3. Ecuaciones empleadas para el cálculo de biomasa aérea de las especies acompañantes en parcelas pluriespecíficas (Ruiz-Peinado et al., 2012; Montero et al., 2005).	8
+[table of figures] Tabla 4. Ecuaciones para el cálculo de biomasa por agrupación de matorral (Montero et al., 2020). Variables: fracción de cabida cubierta expresada en % (fcc); altura del matorral en dm (h).	10
+[table of figures] Tabla 5. Estadísticos de las métricas de precisión de los modelos para todas las zonas de vuelo modelizadas..	18
+[table of figures] Tabla 6. Diferencias entre WQSM y WRP por clase diamétrica..	20
+[table of figures] Tabla 7. Estadísticos de edad, variables dendrométricas y CO2 equivalente de los escaneos en plantaciones considerados.	22
+[table of figures] Tabla 8. Ecuaciones dinámicas de biomasa aérea para las especies acompañantes al Quercus suber.	27
+[Heading 1] IDENTIFICACIÓN DE LAS PARCELAS
+[Normal] Se inventariaron un total de 47 parcelas, de las cuales se han obtenido datos estructurales con tecnología MLS (Escáner laser terrestre) y UAV.
+[Normal] En la tabla 1, se presentan los principales parámetros estadísticos descriptivos de las parcelas más relevantes. Asimismo, la figura 1 muestra la localización de las parcelas y el tipo de tecnología empleada para la captura de datos de los pies de alcornoque.
+[Caption] Tabla . Estadísticos de las parcelas. DBH: diámetro normal. H: altura. N: Densidad de pies. SD: desviación típica.
+[Caption] Figura . Mapa de localización de las parcelas con vuelo UAV, con escaneos MLS y de inventario tradicional.
+[Heading 1] METODOLOGÍA DE TOMA DE DATOS EN CAMPO
+[Heading 2] Levantamiento de parcelas con escáner láser móvil(MLS)
+[Normal] La tecnología LiDAR (Light Detection and Ranging) se basa en la aplicación de sensores activos que miden la distancia a los objetos a partir del tiempo de retorno de pulsos láser. Con esas medidas genera nubes de puntos tridimensionales que reproducen con gran precisión la geometría de la superficie escaneada. Según la plataforma en la que se integren, se distingue entre LiDAR aerotransportado (ALS), embarcado en aviones o drones, y LiDAR terrestre, operado desde el suelo. Este último puede ser estático (TLS, Terrestrial Laser Scanning), con el escáner estacionado sobre trípode, o móvil (MLS, Mobile Laser Scanning). En el MLS el sensor se desplaza, usualmente portado en mano, y su trayectoria se reconstruye mediante algoritmos SLAM (Simultaneous Localization and Mapping). En el ámbito forestal, el escaneo desde el suelo registra con detalle centimétrico la estructura bajo el dosel y la arquitectura de cada árbol. Esto permite estimar de forma no destructiva variables como el diámetro normal, la altura, el volumen o la biomasa. En el proyecto, se han realizado un total de 114 escaneos MLS, distribuidos entre 1-6 escaneos por parcelas en función de sus características estructurales. La ubicación de los escaneos se seleccionó en aquellas zonas que presentaban una densidad arbórea suficiente y representativa de la heterogeneidad existente en cada parcela, con el objetivo de capturar adecuadamente su variabilidad estructural. La figura 2 muestra la localización de los puntos de toma de datos TLS.
+[Normal] La adquisición de datos se realizó con el escáner láser móvil BLK2GO, el cual cuenta con una densidad de puntos de 420.000 pts/s, un alcance de 25 m y una precisión aproximada de 10 mm. Los escaneos se apoyaron en la toma de Puntos de Control Terrestre (PCT), los cuales fueron georreferenciados a partir del empleo de un GNSS de precisión submétrica, concretamente el modelo portátil SP2-Spectra Precision, y cuyas coordenadas fueron corregidas en campo a partir de técnicas NTRIP o mediante postprocesos a partir de ficheros RiNEX, asegurando para todas las parcelas una precisión submétrica. Los PCT se emplearon posteriormente para el registro y la georeferenciación de las nubes MLS. Todo este proceso se llevó a cabo a partir del software propietario Cyclone Register 360 (Versión 2023.1.0, Leica Geosystems, Heerbrugg, Suiza).
+[Caption] Figura . Mapa de localización parcelas levantadas MLS.
+[Heading 2] Levantamiento de parcelas con vehículo aérea no tripulado (UAV)
+[Normal] Asimismo, se llevaron a cabo vuelos en diversas parcelas utilizando una aeronave no tripulada DJI Matrice 350 RTK, equipada con dos tipos de sensores: un sensor DJI Zenmuse P1 (RGB) y un sensor LiDAR DJI Zenmuse L1.
+[Normal] En total, se prospectaron 14 zonas de estudio, con superficies comprendidas entre 0,5 y 20 hectáreas, cuya localización se muestra en la figura 3.
+[Normal] Las operaciones de vuelo se realizaron a una altura de 110 m sobre el terreno (AGL), empleando una configuración de adquisición de datos con 80 % de solape longitudinal y 80 % de solape transversal para el sensor Zenmuse P1 a una velocidad de 9.5 m/s y 50m sobre el terreno a una velocidad de 5m/s y de 50% de solape transversal para el sensor Zenmuse L1, garantizando una cobertura adecuada para la generación de productos fotogramétricos y resultantes de LiDAR.
+[Caption] Figura . Mapa de localización de las parcelas de vuelo UAV.
+[Heading 1] METODOLOGÍA DE CÁLCULO DEL STOCK DE CARBONO EN BIOMASA VIVA
+[Heading 2] CÁLCULO DE STOCK DE CARBONO A PARTIR DE BIOMASA AÉREA VIVA EN PARCELAS MONOESPECÍFICAS Y PLURIESPECÍFICAS
+[Normal] El stock de carbono en la biomasa viva se calculó de forma indirecta, aplicando ecuaciones alométricas dependientes de las variables dendrométricas de cada pie: diámetro normal a 1.3m sobre el nivel del suelo (d, cm) y altura total (h, m). Estas variables se obtuvieron mediante inventario convencional, escaneo MLS o modelización a partir de los vuelos UAV (apartados 3.2 y 3.4).
+[Normal] Para el arbolado se emplearon las ecuaciones de Ruiz Peinado et al. (2012) las cuales se basan en el ajuste de mínimos cuadrados generalizados conjuntos (SUR). Este método garantiza la aditividad entre fracciones, de tal forma que la biomasa total corresponde al sumatorio de las estimaciones de fuste, ramas gruesas (> 7 cm), ramas medias (2-7 cm), ramillas (<2 cm) con hojas y raíz. El carbono de cada pie se obtuvo multiplicando su biomasa seca por la fracción de carbono. El stock de la parcela se calculó como la suma de los valores individuales, expresada por unidad de superficie. Para el Quercus suber, se emplearon las ecuaciones alométricas de Ruiz Peinado recogidas en la tabla 2.
+[Caption] Tabla . Ecuaciones de biomasa por fracciones para Quercus suber (Ruiz-Peinado et al., 2012). B: peso seco (kg/árbol); d: diámetro normal (cm); h: altura total (m).
+[Normal] En las parcelas pluriespecíficas se aplican las ecuaciones descritas de la tabla 3, la cual contempla todas las especies reconocidas como acompañantes al Quercus suber en los proyectos de absorción. Todas las fórmulas de las especies derivan de las ecuaciones desarrolladas por Ruiz Peinado et al. (2012), a excepción de las especies de Celtis australis y Juglans regia para los cuales se aplican las ecuaciones generales de frondosas descritas por Montero et al. (2005).
+[Caption] Tabla . Ecuaciones empleadas para el cálculo de biomasa aérea de las especies acompañantes en parcelas pluriespecíficas (Ruiz-Peinado et al., 2012; Montero et al., 2005). B: peso seco (kg/árbol); diámetro normal (cm); h: altura total (m).
+[Normal] La biomasa de matorral se estimó con las ecuaciones desarrolladas por Montero et al. (2020), recogidas en la tabla 4. Estas ecuaciones expresan las toneladas de biomasa por unidad de superficie en función de la fracción de cabida cubierta (fcc) y de la altura media del matorral (h, dm).
+[Caption] Tabla . Ecuaciones para el cálculo de biomasa por agrupación de matorral (Montero et al., 2020). Variables: fracción de cabida cubierta expresada en % (fcc); altura del matorral en dm (h).
+[Heading 2] PROCESAMIENTO DE LOS DATOS OBTENIDOS CON MLS Y OBTENCIÓN MEDICIONES DENDROMÉTRICAS
+[Normal] Una vez que las nubes de puntos fueron registradas y georreferenciadas, se procesaron mediante el software de LiDAR360 (Versión 7.0, GreenValley International, CA, USA), siguiendo el flujo de trabajo recomendado por la guía de usuario. Este proceso incluyó las siguientes etapas: recorte y diezmado, eliminación de valores atípicos (outliers), clasificación de puntos de suelo, normalización de las nubes de puntos, segmentación de árboles individuales, obtención de métricas dendrométricas y extracción de métricas de matorral.
+[Normal] A continuación, se describe en mayor detalle cada una de las fases:
+[List Paragraph] Recorte y diezmada nube de puntos: Debido al propio funcionamiento del escáner, durante la captura de la nube de puntos se registraron superficies que excedían el área de interés. Además, la densidad de puntos bruta obtenida tras el escaneo, suele ser muy superior a la densidad de puntos mínima necesaria para el correcto funcionamiento de los algoritmos de procesamiento. Por este motivo, y con el objetivo de minorar la carga computacional en el procesamiento, las PCD se recortaron delimitando su extensión a parcelas cuadradas, cuyos límites se definieron por la zona en la que los árboles aparecen completos, sin presencia de oclusiones ni partes de copas ausentes. Posteriormente se llevó a cabo el diezmado de la nube, definiendo un espaciamiento mínimo entre los puntos (Minimum Points Spacing), parámetro que fija la distancia mínima admisible entre dos puntos cualesquiera dentro del espacio de la PCD. En todos los escaneos se aplicó un valor de espaciamiento de 5 mm, lo que redujo el peso de la nube entre 2 y 4 veces respecto a su peso en bruto.
+[List Paragraph] Eliminación de valores atípicos: Las nubes de puntos en bruto suelen presentar puntos anómalos tanto a niveles superiores como en los niveles inferiores de la nube. En la parte alta, los errores sueles estar asociados a objetos que sobrevuelan el dosel o al propio movimiento de las copas a causa del viento, mientras que en los niveles bajos suelen originarse por el efecto de multitrayectoria del escáner. Para eliminarlos se aplicó la herramienta “Remove Outliers”. El algoritmo determina para cada punto, el número de vecinos cercanos, así como la distanica media entre ellos, calculando la media y la desviación estándar de esas distancias para el conjunto de la nube. Todo punto cuya distancia media a sus vecinos supere la distancia máxima admitida (dmax = media + n*std deviation, donde n es un número definido por el usuario), será eliminado al ser catalogado como atípico
+[List Paragraph] Normalización nube de puntos: Se define como el proceso de transformación geométrica de los puntos brutos, donde la coordenada Z refleja los m.s.n.m para generar una nueva nube donde la altura de los puntos representa la altura absoluta de los objetos sobre la superficie del suelo. Este paso resulta imprescindible para garantizar la precisión, evitando la distorsión de las mediciones dendrométricas. Previamente, es necesario clasificar los puntos pertenecientes al suelo, tarea que el software resuelve mediante el algoritmo desarrollado por Zhao et al. (2016). Este algoritmo construye primero una red irregular triangulada (Triangulated Irregular Network, TIN) dispersa apoyada en puntos semilla y, a partir de ella, aplica una densificación progresiva, capa a capa, hasta clasificar la totalidad de los puntos del terreno. Dado lo complejo que resulta ajustar manualmente esta parametrización a las condiciones del terreno, el software otorga valores preconfigurados y optimizados para cuatro clases (plano, terreno suave, terreno pronunciado y fuertes pendientes). Posteriormente, se obtiene un modelo digital del terreno (MDT) a partir de la generación de un TIN a través de los puntos clasificados como suelo. Este será empleado para la normalización de la nube, substrayendo el valor de elevación del MDT a la coordenada Z de cada uno de los puntos.
+[List Paragraph] Segmentación de instancias: La segmentación de instancias o de árbol individual se realiza mediante la herramienta “Point Cloud Segmentation” aplicando la metodología propuesta por TAO et al. (2025) . Esta se divide en dos etapas: la identificación del tronco principal, mediante el algoritmo de clusterización DBSCAN (Denstity-Based Spatial Clustering of Applications with Noise), y la asignación de la copa al tronco mediante la aplicación de caminos más cortos CPS ,que parte de la hipótesis de que cada punto de la copa pertenece a la base más próxima en el espacio. Tras el procesado, las nubes se sometieron a procesos de correcciones manuales tratando de definir con máxima precisión cada uno de los individuos a partir de la herramienta Individual Tree Editor del software LiDAR 360 (Versión 7.0, GreenValley International, CA, USA). A su vez, se clasificará cada uno de los individuos por especie, asignándole un valor numérico en función de la especie identificada.
+[List Paragraph] Obtención mediciones dendrométricas: Posteriormente a las correcciones aplicadas durante la segmentación, se recalculan las métricas a nivel de árbol individual a partir de la función “Individual Tree Attributes Statistics”. Se calcularon las métricas de diámetro normal, altura, diámetro de copa, diámetro de copa S-N, diámetro de copa E-W, área de copa y volumen de copa asociadas a las coordenadas X, Y de cada uno de los individuos segmentados.
+[List Paragraph] Obtención de las métricas de matorral: Una vez que se han segmentado cada uno de los individuos, ajustando correctamente cada uno de sus límites, se realizará su extracción de la nube, permaneciendo los puntos remanentes de suelo y matorral presentes en cada una de las parcelas. Con ellos, se realiza el cálculo de las métricas de altura media y FCC a partir de la rasterización de la nube de puntos.
+[Heading 2] PROCESAMIENTO DE LOS DATOS OBTENIDOS CON UAV Y DELIMITACIÓN DE LAS COPAS ARBÓREAS
+[Heading 3] Obtención de métricas LiDAR e imágenes a partir de los vuelos UAV
+[Normal] En primer lugar, se procesaron las imágenes RGB del sensor Zenmuse P1 y las nubes de puntos LiDAR obtenidas a partir de los vuelos UAV realizados con el sensor Zenmuse L1.
+[Normal] Como resultado de este proceso, se generó una orto imagen RGB de alta resolución espacial y una nube de puntos LIDAR de la zona de vuelo UAV a partir del vuelo UAV.
+[Normal] El procesamiento fotogramétrico de las imágenes RGB se llevó a cabo utilizando el software Agisoft Metashape Professional versión 2.1.3. mientras que el procesado de los datos LiDAR se realizó con el software DJI Terra versión 5.3.5
+[Normal] A partir de la nube de puntos LiDAR, se obtuvieron, por un lado, el Modelo Digital de Copas (MDC o CHM del inglés Canopy Height Model), y, por otro lado, métricas LiDAR relacionadas con la dendrometría de los árboles. Estas tareas fueron llevadas a cabo con el software LAStools ejecutado a través de RStudio.
+[Normal] El flujo de trabajo seguido para la obtención de métricas LiDAR fue el siguiente:
+[List Paragraph] Comprobación de los metadatos del vuelo. Se comprobó la densidad de puntos, que fue de entre 400 y 600 puntos/m2, dependiendo de la zona volada.
+[List Paragraph] Comprobación visual de la nube de puntos. En caso de existir elementos como tendidos eléctricos, se eliminaron para evitar errores.
+[List Paragraph] División de la nube de puntos en teselas, para agilizar la lectura y procesamiento de la nube de puntos.
+[List Paragraph] Optimización de los archivos. Este proceso consistió en comprimir los archivos y sus características en un formato y encriptado más simple, de mayor comprensión y coherencia espacial. Se redujo de esta forma el tamaño de los archivos y se aceleró su procesamiento posterior.
+[List Paragraph] Normalización de la nube de puntos. La normalización de la nube de puntos consistió en convertir las alturas ortométricas en alturas relativas al terreno, restando la elevación del suelo para obtener la altura real de los objetos.
+[List Paragraph] Extracción de las métricas LiDAR en formato ráster tipo GeoTiff. La resolución espacial elegida para los rásteres fue de 0,15 m. Se extrajeron diversas métricas, que se describen a continuación según LAStools:
+[List Paragraph] Medidas de posición: altura máxima de la nube de puntos y percentiles 75, 90, 95, 99 de la altura de la nube de puntos. Los percentiles corresponden a la altura de la nube de puntos para la cual el porcentaje X de los puntos totales se encuentran por debajo.
+[List Paragraph] Medidas de centralización: altura media de la nube de puntos.
+[Normal] Por otro lado, para obtener el MDC se usó el paquete “lasR”, empleado para crear y ejecutar flujos de procesamiento de datos LiDAR sobre grandes conjuntos de datos. En primer lugar, se tomó la nube de puntos normalizada y se aplicó una triangulación de Delaunay considerando únicamente el primer retorno (correspondiente a las copas de los árboles o el suelo). Esta técnica consiste en crear una malla de triángulos contiguos no superpuestos a partir de un dataset de puntos; el círculo circunscrito de cada triángulo no contiene ningún punto en su interior.
+[Normal] A continuación, se rasterizó el resultado y se rellenaron los sumideros o huecos según el método de St-Onge (2008). Se obtuvo así un ráster de alturas normalizadas de las copas de los árboles y del resto de la vegetación.
+[Heading 3] Delimitación de las copas de los árboles en la zona de vuelo UAV
+[Normal] Las copas de los pies de alcornoque de las zonas de vuelo se obtuvieron a partir del MDC generado. En un primer momento, se aplicó una ventana de media móvil de 5x5 para suavizar el MDC, lo cual es habitual. Seguidamente, se aplicó el algoritmo “watershed” del paquete lidR para delimitar las copas. Este algoritmo trata el ráster como una superficie topográfica, donde los valores del ráster representan relieves y valles. Simula cómo el agua llena las depresiones y genera delimitaciones cuando las regiones se encuentran, separando así diferentes zonas u objetos en la superficie. Se consideró una altura mínima de 1,5 m para que un píxel pudiese ser considerado como perteneciente a una copa. Esto permite evitar la inclusión del matorral y pastizal y al mismo tiempo no excluir árboles pequeños.
+[Normal] El archivo vectorial con las copas delimitadas fue revisado manualmente en QGIS, tomando como referencia la imagen RGB en color natural. Se comprobó así la correspondencia de las copas delimitadas por el algoritmo con las copas visibles en la imagen RGB, modificando los objetos espaciales en caso necesario.
+[Heading 2] MODELIZACIÓN DE VARIABLES DENDROMÉTRICAS Y CÁLCULO DEL CARBONO EN BIOMASA VIVA
+[Normal] El análisis y su modelización, se ejecutó en la versión 4.5.0 de R a través de RStudio. A continuación, se resume el proceso de generación de variables, modelización y cálculo de biomasa en la figura 4.
+[Caption] Figura . Esquema del flujo de trabajo del proceso de generación de la base de datos MLS-UAV, modelización y cálculo de la biomasa viva en una zona de vuelo.
+[Normal] El objetivo de la modelización fue extrapolar a toda la zona de vuelo UAV las variables dendrométricas derivadas de la individualización de árboles de los escaneos MLS, que son el diámetro a la altura del pecho (diámetro normal) y la altura total de los pies.
+[Normal] En efecto, estas dos variables son las variables de entrada en las ecuaciones de biomasa, siendo necesarias para cuantificar la biomasa arbórea y el carbono almacenado en todos los pies de la zona de vuelo UAV. Luego, a partir de la fase de modelización, se buscó relacionar el diámetro normal y la altura total de los pies con las métricas LiDAR del vuelo UAV para obtener los datos a nivel de toda el área de interés.
+[Normal] Para cada zona de vuelo UAV, se cargaron en RStudio el archivo vectorial de copas revisado y los rásteres de las métricas LiDAR derivadas de la nube de puntos. De esta forma, se extrajo para cada copa el valor medio de las métricas LiDAR obtenidas. Asimismo, se determinó para cada copa el área total, y los diámetros mínimo, máximo y medio, quedando caracterizadas geométricamente.
+[Normal] Como resultado, se obtuvo una base de datos derivada del vuelo UAV, en la cual para cada árbol se tiene lo siguiente:
+[List Paragraph] Área de copa,
+[List Paragraph] Diámetros mínimo, máximo y medio de la copa
+[List Paragraph] Valores medios de las métricas LiDAR derivadas de la nube de puntos dentro del polígono de la copa
+[Normal] De forma simultánea, se procesaron los escaneos MLS realizados dentro de las zonas de vuelo (apartado 3.2). Los pies fueron individualizados, tras lo cual se determinó la especie arbórea, y se calculó el diámetro basal y la altura total de cada individuo.
+[Normal] Además de estos parámetros, se extrajeron las coordenadas X e Y de cada pie, lo cual permitió unir estos parámetros dendrométricos de los árboles con los datos correspondientes a sus copas derivados del vuelo UAV, de esta manera se completó una base de datos MLS-UAV lista para la modelización.
+[Normal] Antes de implementar los modelos, fue necesario hacer un estudio de correlación y selección de variables. Para analizar la relación entre las variables dependientes (altura total y diámetro basal) y las variables independientes (valores medios de alturas máxima y media de la nube puntos de la copa, y percentiles 75, 90,95, y 99, área de copa, y diámetros mínimo, medio y máximo de copa), se calculó el coeficiente de correlación de Spearman. De esta forma, se eligieron variables predictoras el diámetro máximo de copa y la altura máxima de la nube de puntos LiDAR dentro de la copa, tras comprobar que no estaban correlacionadas.
+[Normal] Los modelos se desarrollaron de forma individual para cada zona de vuelo, debido a la influencia de los factores ambientales y de manejo, diferentes entre localizaciones. De esta manera, para cada vuelo se tomó la base de datos MLS-UAV correspondiente.
+[Normal] El número de observaciones de las bases de datos de modelización varió entre 58 y 280 observaciones. Se dividió la base de datos en un 70% de datos para entrenamiento y un 30% de datos para validación, siendo esta partición habitual en trabajos de machine learning.
+[Normal] Para la modelización se implementaron modelos random forest a través del paquete “randomForest”, disponible a través del paquete “caret”. El preprocesamiento de los datos consistió en un centrado y escalado de los datos, y se tuneó el hiperparámetro mtry del algoritmo mediante una validación cruzada de 10 repeticiones y 3 carpetas.
+[Normal] Los modelos fueron evaluados mediante las métricas de error raíz del error cuadrático medio (RMSE), RMSE expresado como porcentaje con respecto a la media de la variable, error porcentual absoluto medio (MAPE), y el sesgo absoluto y expresado como porcentaje con respecto a la media de la variable. Estos estadísticos se definen de la siguiente forma:
+[List Paragraph] Raíz del error cuadrático medio (RMSE): es la desviación estándar de los valores residuales (errores de predicción). Los valores residuales representan la distancia entre las predicciones del modelo y los datos observados. El RMSE cuantifica el grado de dispersión de estos residuos, y su fórmula es la siguiente:
+[Normal] Donde  es el valor predicho,  el valor observado,  el valor medio de la variable y n el número total de observaciones.
+[List Paragraph] Error absoluto medio (MAE): es el promedio de los valores absolutos de los errores. Este error se expresa en las unidades de la variable, y emplea los valores absolutos de las diferencias entre valores predichos y reales, para evitar compensaciones entre errores de distintos signos. Su fórmula es la siguiente:
+[Normal] Donde  es el valor predicho,  el valor observado y n el número total de observaciones.
+[List Paragraph] Error porcentual absoluto medio (MAPE): indica el error medio absoluto. Este error, a diferencia del MAE, se expresa en valor porcentual, ya que normaliza los errores dividiéndolos por los valores reales. Su fórmula es la siguiente:
+[Normal] Donde  es el valor predicho,  el valor observado y n el número total de observaciones.
+[List Paragraph] Sesgo: es la medida más absoluta del error, que expresa la tendencia del modelo a subestimar o a sobreestimar en las predicciones realizadas por el modelo. Su fórmula es la siguiente:
+[Normal] Donde  es el valor predicho,  el valor observado,  el valor medio de la variable y n el número total de observaciones.
+[Normal] La tabla 5 muestra los estadísticos de las métricas de precisión sobre el conjunto de las zonas modelizadas.
+[Caption] Tabla . Estadísticos de las métricas de precisión de los modelos para todas las zonas de vuelo modelizadas. La anotación “%” al lado de la métrica de precisión indica que se expresa como un porcentaje sobre la media de la variable, en caso contrario la métrica en unidades de la variable analizada.
+[Normal] Por último, para determinar el carbono absorbido total en cada zona de vuelo UAV, se eliminaron los árboles de la línea base, en función de la tipología de la actuación presente en la zona de vuelo. Estos árboles se excluyeron del cálculo al representar el carbono ya existente en la situación de referencia, que no constituye carbono adicional atribuible a la actuación. De este modo, el objetivo es cuantificar el carbono obtenible si se acomete la actuación, es decir, el incremento de carbono con respecto al ya presente (línea base), esto es, la adicionalidad. En las zonas en las que hubiese que incluir en el cálculo de carbono el matorral además del arbolado, se filtró en el MDC la vegetación de altura comprendida entre 0,5 y 3,5 m, considerada como matorral.
+[Normal] En algunos casos puntuales como la zona de vuelo “Santa Cruz regeneración natural de Hornachuelos” se estableció como altura máxima del matorral 1,5 m, bajo criterio técnico, en donde se constató que el matorral de esa zona era sensiblemente más bajo que en el resto de las localizaciones.
+[Normal] Una vez filtrada la nube de puntos LiDAR correspondiente al matorral del vuelo UAV, se calculó la fracción de cabida cubierta y la altura media de dicho matorral en toda el área de vuelo.
+[Normal] Finalmente, se aplicaron las ecuaciones de biomasa para el arbolado y matorral pertinentes (apartado 3.1). Como se ha indicado anteriormente, las ecuaciones para el arbolado dependen de la altura del árbol y su diámetro basal, mientras que las ecuaciones aplicadas al matorral se basan en la fracción de cabida cubierta y altura media de le vegetación.
+[Normal] A partir de la biomasa obtenida con estas fórmulas, se obtuvo el carbono almacenado expresado en carbono equivalente (CO2eq) aplicando los coeficientes pertinentes de transformación.
+[Normal] Se constataron diferencias en las densidades de pies y de carbono almacenado entre los vuelos UAV y los escaneos MLS. Esto es de esperar, ya que los escaneos MLS se realizaron en las zonas de mayor densidad dentro de un área de interés, para asegurar la obtención de información de un número suficiente de árboles.
+[Heading 1] FICHAS STOCK DE CARBONO POR PARCELA
+[Normal] Para cada parcela empleada en el presente trabajo se ha elaborado una ficha con su caracterización y resultados del cálculo del stock de biomasa aérea. En el anexo 1 se pueden consultar estas fichas.
+[Heading 1] MÉTODOS VALIDADOS DE MEDICIÓN DE STOCK DE CARBONO EN BIOMASA VIVA
+[Normal] El stock de carbono en la biomasa viva del arbolado se cuantificó mediante las ecuaciones de Ruiz-Peinado et al. (2012) para Quercus suber, ajustadas con 33 árboles apeados de 10,5 a 80 cm de diámetro normal procedentes de la base de datos de Montero et al. (2005). Dado que las parcelas del proyecto presentan una mayor variabilidad estructural y de gestión, se verificó su aplicabilidad comparando sus estimaciones con la biomasa leñosa derivada de modelos de estructura cuantitativa (QSM, Quantitative Structure Models) reconstruidos sobre las nubes MLS.
+[Normal] Se seleccionaron 113 árboles individualizados en siete parcelas ES-11-12, ES-14, ES-27, ES-24, ES-32 y PO-13, con diámetros comprendidos entre los 5,9 y los 86,1 cm, y con alturas comprendidas entre los 2,0 y los 12,0 metros.
+[Normal] Cada árbol se reconstruyó con el módulo Rayextract de la librería de Ray Cloud Tools, que modela la estructura leñosa mediante cilindros jerárquicos con reglas morfológicas de ahusamiento.De cada modelo se obtuvieron el diámetro normal (d), la altura total (h) y los volúmenes de fuste y ramas. En las comparativas con respecto a LiDAR360 sobre 24 individuos, d mostró un sesgo de 0,8 cm y un RMSE de 1,5 cm, mientras que h mostró un sesgo de -0,5 m y un RMSE de 0,6 m. La cantidad de biomasa calculada mediante QSM (WQSM) se obtuvo aplicando al volumen obtenido una densidad media de 600 kg/m3. Mientras que la biomasa a que servirá como referencia en las comparativas obtenida mediante Ruiz Peinado (WRP) fue obtenida como el sumatorio de las fracciones de fuste y ramas de más de 2 cm:
+[Normal] WRP = (0,00525·d2·h + 0,278·d·h) + (0,0135·d2·h + 0,127·d·h)
+[Normal] Para las estimaciones obtenidas mediante Ruiz Peinado, se aplicarán los valores de d y h obtenidos de la aplicación de Rayextract, comparando los resultados obtenidos de la aplicación de las ecuaciones alométricas y de la reconstrucción geométrica. Se calcularon los valores de R2, el coeficiente de correlación de concordancia (CCC; Lin, 1989), que penaliza la desviación respecto a la recta 1:1, el MAPE y la diferencia relativa por árbol, (WQSM − WRP) / WRP. Para comprobar si esta diferencia varía con el tamaño del árbol se ajustó la regresión ln(WQSM/WRP) = a + b *ln d. La figura 5 muestra los resultados estadísticos del análisis.
+[Caption] Figura .(a) Distribución diamétrica de la muestra de verificación por parcela, fondo gris indica el rango de clases empleado por Ruiz Peinado en la creación de sus ecuaciones alométricas. (b) Biomasa leñosa aérea estimada mediante Rayextract (QSM) frente a la obtenida con las ecuaciones de Ruiz Peinado, en escala logarítmica. Los círculos huecos señalan los árboles a diferencias superiores al 100%. R2 y CCC calculados a partir de escala original (n = 113).
+[Normal] Ambas estimaciones mostraron una estrecha relación (R2=0,94, CCC = 0,83), con valores en las estimaciones de QSM superiores en un 17% de media. La diferencia depende, no obstante, de la clase diamétrica del arbolado. Las ecuaciones estiman más biomasa que los métodos QSM en clases diamétricas inferiores a los 20 cm y menos en las superiores. La tabla 6 muestra las diferencias entre ambas metodologías por clase diamétrica.
+[Caption] Tabla . Diferencias entre WQSM y WRP por clase diamétrica. %WRP: fracción de la biomasa total de la muestra según Ruiz -Peinado; Dif: Diferencia relativa (WQSM-WRP) / WRP.
+[Normal] En las clases diamétricas centrales (15 – 35 cm), que concentran la mayor parte de la muestra, las diferencias medianas son inferiores al 10%. En las clases diamétricas superiores, los modelos de QSM proporcionan valores sensiblemente superiores, discrepancia que se concentra en la copa, ya que en el fuste ambas estimaciones son muy similares. Las diferencias más acusadas corresponden a un reducido número de pies de arquitectura atípica, cuya exclusión mejora notablemente la concordancia. En los pies de menor diámetro son las ecuaciones las que proporcionan valores superiores, si bien su contribución a la biomasa total es poco relevante. La figura 6a muestra la diferencia relativa entre la biomasa QSM y la de Ruiz-Peinado et al. (2012) por pie en función del diámetro normal. El ajuste (ln(W_QSM/W_RP) = −1,17 + 0,39·ln d) se anula en torno a 20 cm y crece hasta cerca del +70 % a 80 cm. La figura 6b compara ambas estimaciones en escala logarítmica: el mayor exponente del ajuste QSM (2,46 frente a 2,07) explica que la discrepancia aumente con el tamaño del árbol.
+[Caption] Figura . (a) Diferencia relativa entre WQSM y WRP en función del diámetro normal, con el ajuste ln (WQSM/ WRP) = -1,17 + 0,39 ln d y su intervalo de confianza del 95%. b) Relación entre los valores obtenidos mediante Ruiz Peinado y modelos QSM con relación al diámetro nominal en escala logarítmica (n = 113).
+[Normal] Los resultados contemplados en las Figuras 5 y 6 respaldan el empleo de las ecuaciones de Ruiz Peinado et al. (2012)  como método validado para cuantificar el stock de carbono en biomasa viva en el proyecto. En las clases diamétricas intermedias y dominantes, las diferencias medianas son inferiores al 10%. En las clases diamétricas superiores (>35 cm), que concentran más del 65% de la biomasa de la muestra, las ecuaciones proporcionan valores inferiores a los del QSM, por lo que el stock de carbono estimado resulta más conservador. Parte de esta diferencia puede deberse a las limitaciones intrínsecas en los modelos QSM, dada la tendencia documentada de estas metodologías a sobreestimar el volumen en la biomasa aérea, más presente en los individuos de mayor porte. En consecuencia, y dadas las altas correlaciones descritas, las ecuaciones de Ruiz Penado et al. (2012)  se adoptan como método de medición del stock de carbono de biomasa viva arbórea en el proyecto.
+[Heading 1] 6. ALGORITMOS DE MEDICIÓN EX ANTE
+[Heading 2] MEDICIÓN MASAS MONOESPECÍFICAS
+[Normal] El objetivo de esta tarea consistió en la modelizar la absorción potencial del carbono ex-ante en plantaciones de alcornoque (Quercus suber). Con ello, se busca proporcionar estimaciones sencillas y precisas a los productores interesado en adscribirse al proyecto sobre la cantidad de carbono que sus plantaciones podrían fijar.
+[Normal] Para ello, se conformó una base de datos espacial a partir de los datos procedentes de los escaneos MLS. En esta base de datos, una observación corresponde a un escaneo MLS, para el cual se tiene:
+[List Paragraph] CO2 equivalente absorbido medio por pie
+[List Paragraph] Coordenadas geográficas del centro de la parcela MLS
+[List Paragraph] Edad estimada de los individuos
+[List Paragraph] Potencialidad media en la parcela para el periodo 2021-2040 y la trayectoria socioeconómica SSP 370 (resultado recogido en los entregables D5.2 y D5.3.
+[Normal] La variable potencialidad se incorporó debido a que refleja la idoneidad ambiental del sitio para el alcornoque, siendo de interés para una estimación correcta de la absorción potencial de carbono.
+[Normal] Para aumentar el número de datos y poder desarrollar modelos más completos y robustos, se añadieron datos análogos derivados de inventarios tradicionales en alcornocales, proporcionados por el Centro de Investigación Forestal (CIFOR) del Instituto Nacional de Investigación y Tecnología Agraria y Alimentaria (INIA). Además, se añadieron también datos propios de mediciones realizadas entre 2007 y 2011 en alcornocales, también tradicionales. El conjunto final consolidó datos de 85 observaciones en plantaciones de alcornoque. La tabla 7 resume los estadísticos de edad y CO2 equivalente por pie de las plantaciones y densificaciones consideradas.
+[Caption] Tabla . Estadísticos de edad, variables dendrométricas y CO2 equivalente de los escaneos en plantaciones considerados.
+[Normal] La figura 7, por otro lado, muestra la relación existente entre la edad y el contenido de carbono equivalente medio por pie.
+[Caption] Figura . Absorción de carbono media por pie en función de la edad aproximada de la plantación (n=85 observaciones).
+[Normal] Se observa una tendencia exponencial en la figura 7. Aunque teóricamente cabría esperar una curva de tipo logístico, la ausencia de una asíntota horizontal, indicadora de una estabilización de la absorción de carbono por pie, se debe a la longevidad y el crecimiento lento propio de la especie Quercus suber. En efecto, en trabajos como el de Palma et al. (2013), señalan que el almacenamiento de carbono en alcornoques en Portugal no alcanza un comportamiento asintótico antes de los 60 años, mientras que el presente estudio analiza plantaciones de hasta 35 años.
+[Normal] Con estos datos, se desarrolló un modelo lineal simple, de la forma siguiente:
+[Normal] Se aplicó una transformación logarítmica tanto a la variable dependiente como a la variable independiente “Edad” con el fin de linealizar la relación y obtener un mejor modelo. La figura 8 muestra la relación entre el stock de carbono por pie y la edad con las transformaciones logarítmicas aplicadas.
+[Normal] Para desarrollar el modelo se empleó el 70% de los datos, y el 30% restante se empleó para validar el modelo y determinar su precisión. De esta forma, se evaluó el modelo resultante con los estadísticos RMSE en valor absoluto y expresado como porcentaje y el coeficiente de determinación. El coeficiente de determinación (R2) se calcula de la siguiente forma:
+[Normal] Donde  es el valor predicho,  el valor observado,  el valor medio de la variable y n el número total de observaciones.
+[Caption] Figura . Absorción de carbono media por pie en función de la edad aproximada de la plantación, con transformación logarítmica aplicada en ambas variables (n=85 observaciones).
+[Normal] La figura 9 muestra el resultado global del ajuste del modelo sobre todos los datos (n=85 observaciones), considerando la variable “Edad” y el valor medio de potencialidad por parcela. La precisión del modelo en el conjunto de datos de entrenamiento resultó ser elevada, con un R2 de 0,78, lo cual indica un muy buen ajuste del modelo. Considerando los datos de validación, el R2 fue de 0,77 en escala natural (sin el logaritmo aplicado) y de 0,84 en escala logarítmica (con el logaritmo aplicado), y el RMSE obtenido fue de 0,06 ton/pie, equivalente a un 26,3% con respecto a la media del stock de carbono de los datos de validación. El modelo lineal tiene la ecuación siguiente:
+[Normal] Que equivale a:
+[Caption] Figura . Ajuste del modelo lineal tonCO2eq/pie=f(Edad, potencialidad) sobre todos los datos (n=85 observaciones) con indicación de los intervalos de confianza del modelo lineal implementado.
+[Normal] La relación entre la absorción de carbono por pie y la potencialidad resultó moderada-débil. Este comportamiento confirma lo expuesto en los entregables precios del proyecto, la dominancia del manejo y las características genéticas locales de los individuos sobre las características asociadas al clima y al sitio, reflejadas en la potencialidad.
+[Normal] Por último, la figura 10 muestra un ejemplo de predicciones de absorción de carbono por pie en función de la potencialidad para el periodo 2021-2040 y SSP 370, para distintas edades de alcornoque.
+[Normal] En esta figura se aprecia el aumento de la absorción de carbono por pie a mayor edad y potencialidad, alcanzando prácticamente 1,5 tonCO2eq/pie a los 60 años y una potencialidad de 0,9. Estos valores de stock de carbono en la parte aérea del alcornoque para edades similares se han constatado anteriormente en trabajos afines.
+[Caption] Figura . Predicciones de stock de carbono por pie en función de la potencialidad para el periodo 2021-2040 y SSP 370 y diferentes edades.
+[Heading 2] MEDICIÓN MASAS PLURIESPECÍFICAS
+[Normal] En las parcelas pluriespecíficas, y para las especies acompañantes al Quercus suber descritas en 3.1, se aplican mayoritariamente los modelos de biomasa ex ante desarrollados en el proyecto eco2for. Estos modelos estiman la biomasa aérea por hectárea o a nivel de árbol en función de la edad de la masa, su densidad y una variable climática media, ajustándose a partir de repoblaciones de toda la Península de hasta 30-35 años. La biomasa de cada especie se calcula por hectárea a partir de la densidad total de la parcela y se multiplica por la proporción de pies de la especie. Se emplearán los contenidos de carbono descritos por Montero et al. (2005) . En la tabla 8 se describen las expresiones empleadas para el proyecto.
+[Caption] Tabla . Ecuaciones dinámicas de biomasa aérea para las especies acompañantes al Quercus suber. Btot_ha: biomasa aérea (kg m.s / ha); bm: biomasa aérea del árbol medio (kg/pie); T: Edad repoblación; N: densidad total parcela (pies/ha); p_m: precipitación media anual (mm); tm: temperatura media anual (C); índice de Martonne = pp_m/(tm+10).
+
+
+--- TABLAS DEL DOCUMENTO ---
+
+[TABLA 1] (5 filas x 5 columnas)
+  Fila 1:  | H (m) | DBH (cm) | N(pies/ha) | CO2 (tn/pie)
+  Fila 2: Promedio | 5,92 | 18,21 | 240 | 0,27
+  Fila 3: SD | 2,09 | 9,88 | 196 | 0,36
+  Fila 4: Máximo | 12,67 | 72,77 | 1543 | 3,01
+  Fila 5: Mínimo | 2,14 | 4,98 | 7 | 0,02
+
+[TABLA 2] (6 filas x 3 columnas)
+  Fila 1: Especie | Fracción | Ecuación
+  Fila 2: Quercus suber | Fuste | Bf = 0,00525·d²·h + 0,278·d·h
+  Fila 3: Quercus suber | Ramas gruesas (>7 cm) | Br7 = 0,0135·d²·h
+  Fila 4: Quercus suber | Ramas medias (2–7 cm) | Br2-7 = 0,127·d·h
+  Fila 5: Quercus suber | Ramillas (<2 cm) + hojas | Br2+h = 0,0463·d·h
+  Fila 6: Quercus suber | Raíces | Brad = 0,0829·d²
+
+[TABLA 3] (43 filas x 3 columnas)
+  Fila 1: Especie | Fracción | Ecuación
+  Fila 2: Pinus pinea | Fuste | Bf = 0,0224·d^1,923·h^1,0193
+  Fila 3: Pinus pinea | Ramas gruesas (>7 cm) | Br7 = 0,247·(d−22,5)²·Z; Z = 1 si d > 22,5 cm; 0 en otro caso
+  Fila 4: Pinus pinea | Ramas medias (2–7 cm) | Br2-7 = 0,0525·d²
+  Fila 5: Pinus pinea | Ramillas (<2 cm) + acículas | Br2+h = 21,927 + 0,0707·d² − 2,827·h
+  Fila 6: Pinus pinea | Raíces | Brad = 0,117·d²
+  Fila 7: Quercus faginea | Fuste | Bf = 0,154·d²
+  Fila 8: Quercus faginea | Ramas gruesas (>7 cm) | Br7 = 0,0861·d²
+  Fila 9: Quercus faginea | Ramas medias (2–7 cm) | Br2-7 = 0,127·d² − 0,00598·d²·h
+  Fila 10: Quercus faginea | Ramillas (<2 cm) + hojas | Br2+h = 0,0726·d² − 0,00275·d²·h
+  Fila 11: Quercus faginea | Raíces | Brad = 0,169·d²
+  Fila 12: Quercus pyrenaica | Fuste + ramas gruesas | Bf+r7 = 0,0261·d²·h
+  Fila 13: Quercus pyrenaica | Ramas medias (2–7 cm) | Br2-7 = −0,0260·d² + 0,536·h + 0,00538·d²·h
+  Fila 14: Quercus pyrenaica | Ramillas (<2 cm), sin hojas | Br2 = 0,898·d − 0,445·h
+  Fila 15: Quercus pyrenaica | Raíces | Brad = 0,143·d²
+  Fila 16: Quercus canariensis | Fuste | Bf = 0,0126·d²·h
+  Fila 17: Quercus canariensis | Ramas gruesas (>7 cm) | Br7 = 0,103·d²
+  Fila 18: Quercus canariensis | Ramas medias + ramillas + hojas | Br2-7+2+h = 0,167·d·h
+  Fila 19: Quercus canariensis | Raíces | Brad = 0,135·d²
+  Fila 20: Quercus ilex | Fuste | Bf = 0,143·d²
+  Fila 21: Quercus ilex | Ramas gruesas (>7 cm) | Br7 = 0,0684·(d−12,5)²·h·Z; Z = 1 si d > 12,5 cm; 0 en otro caso
+  Fila 22: Quercus ilex | Ramas medias (2–7 cm) | Br2-7 = 0,0898·d²
+  Fila 23: Quercus ilex | Ramillas (<2 cm) + hojas | Br2+h = 0,0824·d²
+  Fila 24: Quercus ilex | Raíces | Brad = 0,254·d²
+  Fila 25: Castanea sativa | Fuste | Bf = 0,0142·d²·h
+  Fila 26: Castanea sativa | Ramas gruesas (>7 cm) | Br7 = 0,223·(d−12,5)²·Z; Z = 1 si d > 12,5 cm; 0 en otro caso
+  Fila 27: Castanea sativa | Ramas medias (2–7 cm) | Br2-7 = 0,230·d·h
+  Fila 28: Castanea sativa | Ramillas (<2 cm), sin hojas | Br2 = 0,221·d·h
+  Fila 29: Castanea sativa | Raíces | Brad = 0,0211·d^2,804
+  Fila 30: Ceratonia siliqua | Fuste | Bf = 0,142·d^1,974
+  Fila 31: Ceratonia siliqua | Ramas gruesas (>7 cm) | Br7 = 0,104·d²
+  Fila 32: Ceratonia siliqua | Ramas medias (2–7 cm) | Br2-7 = 0,0538·d²
+  Fila 33: Ceratonia siliqua | Ramillas (<2 cm) + hojas | Br2+h = 0,151·d² − 0,00740·d²·h
+  Fila 34: Ceratonia siliqua | Raíces | Brad = 0,335·d²
+  Fila 35: Olea europaea var. sylvestris | Fuste | Bf = 0,0114·d²·h
+  Fila 36: Olea europaea var. sylvestris | Ramas gruesas (>7 cm) | Br7 = 0,0108·d²·h
+  Fila 37: Olea europaea var. sylvestris | Ramas medias (2–7 cm) | Br2-7 = 1,672·d
+  Fila 38: Olea europaea var. sylvestris | Ramillas (<2 cm) + hojas | Br2+h = 0,0354·d² + 1,187·h
+  Fila 39: Olea europaea var. sylvestris | Raíces | Brad = 0,147·d²
+  Fila 40: Celtis australis | Biomasa Área Total | Ba = 0,15335 *d^2,29843
+  Fila 41: Celtis australis | Raíces | Brad = 0,25159 *d^1,96764
+  Fila 42: Juglans regia | Biomasa Área Total | Ba = 0,15335 *d^2,29843
+  Fila 43: Juglans regia | Raíces | Brad = 0,25159 *d^1,96764
+
+[TABLA 4] (17 filas x 5 columnas)
+  Fila 1: Agrupación | Biomasa matorral (tn/ha) | a | b1 | b2
+  Fila 2: A12 – Setos, bardas, orlas | a*h*asin(sqrt(fcc/100)) | 0,6441192 | 0 | 0
+  Fila 3: A13 – Bujedos | a*((h*asin(sqrt(fcc/100)))^b2) | 4,515059 | 0 | 0,428802
+  Fila 4: A15 – Arbustedos Quercus ilex | a*((h*asin(sqrt(fcc/100)))^b2) | 0,3768846 | 0 | 1,0172503
+  Fila 5: A16 – Sabinares, enebrales | a*((h*asin(sqrt(fcc/100)))^b2) | 0,8170986 | 0 | 1,2403275
+  Fila 6: A17 – Coscojares más o menos puros | a*(((h^b1)*asin(sqrt(fcc/100)))^b2) | 2,0135328 | 0,8191936 | 0,9125035
+  Fila 7: A18 – Lentiscares | a*((h*asin(sqrt(fcc/100)))^b2) | 2,5800701 | 0 | 0,8037841
+  Fila 8: A19 – Mancha mediterránea | a*(h*asin(sqrt(fcc/100)) | 1,628329 | 0 | 0
+  Fila 9: A19A – Garrigas | a*(((h^b1)*asin(sqrt(fcc/100)))^b2) | 4,772295 | 0,591833 | 1,227138
+  Fila 10: A22 – Brezales | a*((h*asin(sqrt(fcc/100)))^b2) | 2,0483619 | 0 | 0,8613609
+  Fila 11: A23 – Leguminosas retamoideas | a*(((h^b1)*asin(sqrt(fcc/100)))^b2) | 9,018966 | 0,32999 | 0,419907
+  Fila 12: A24 – Leguminosas aulagoides y afines | a*((h^b1)*asin(sqrt(fcc/100))^b2) | 1,4901824 | 0,98885 | 1,0275925
+  Fila 13: A25 – Jarales | a*((h*asin(sqrt(fcc/100)))^b2) | 1,7397887 | 0 | 0,884211
+  Fila 14: A26 – Tomillares | a*((h*asin(sqrt(fcc/100)))^b2) | 1,378164 | 0 | 0,999194
+  Fila 15: A27 – Cubiertas mixtas | a*((h*asin(sqrt(fcc/100)))^b2) | 1,7222769 | 0 | 0,7768124
+  Fila 16: A35 – Atochares, espartizales | a*h*asin(sqrt(fcc/100)) | 0,9808213 | 0 | 0
+  Fila 17: EC_GENERAL | a*((h*asin(sqrt(fcc/100)))^b2) | 1,8255065 | 0 | 0,8844
+
+[TABLA 5] (22 filas x 4 columnas)
+  Fila 1:  |  | DBH | Altura
+  Fila 2: RMSE | Mínimo | 3,36 | 0,32
+  Fila 3: RMSE | Máximo | 7,65 | 1,19
+  Fila 4: RMSE | Medio | 5,55 | 0,68
+  Fila 5: RMSE % | Mínimo | 19,67 | 6,72
+  Fila 6: RMSE % | Máximo | 39,53 | 16,16
+  Fila 7: RMSE % | Medio | 29,76 | 11,01
+  Fila 8: MAE | Mínimo | 2,63 | 0,26
+  Fila 9: MAE | Máximo | 5,42 | 0,95
+  Fila 10: MAE | Medio | 4,02 | 0,53
+  Fila 11: MAPE | Mínimo | 17,37 | 5,82
+  Fila 12: MAPE | Máximo | 36,22 | 12,71
+  Fila 13: MAPE | Medio | 24,09 | 8,99
+  Fila 14: SESGO | Mínimo | -2,99 | -0,32
+  Fila 15: SESGO | Máximo | 1,18 | 0,11
+  Fila 16: SESGO | Medio | -0,21 | -0,05
+  Fila 17: SESGO % | Mínimo | -12,88 | -7,84
+  Fila 18: SESGO % | Máximo | 7,08 | 2,03
+  Fila 19: SESGO % | Medio | -1,01 | -0,81
+  Fila 20: R2 | Mínimo | 0,12 | -0,09
+  Fila 21: R2 | Máximo | 0,80 | 0,94
+  Fila 22: R2 | Medio | 0,41 | 0,63
+
+[TABLA 6] (7 filas x 6 columnas)
+  Fila 1: CD (cm) | n | %WRP | Dif media (%) | Dif. Mediana (%) | MAPE (%)
+  Fila 2: <15 | 18 | 1,7 | -23,0 | -30,7 | 38,2
+  Fila 3: 15 - 25 | 31 | 10,0 | +21,2 | -4,0 | 37,4
+  Fila 4: 25 -35 | 37 | 23,3 | +11,0 | +9,0 | 14,0
+  Fila 5: 35 -45 | 15 | 20,0 | +33,0 | +34,8 | 33,7
+  Fila 6: >50 | 12 | 45,0 | +64,5 | +50,0 | 64,5
+  Fila 7: Total | 113 | 100 | +17,0 | +9,0 | 32,3
+
+[TABLA 7] (6 filas x 5 columnas)
+  Fila 1: Variable | Valor mínimo | Valor medio | Valor máximo | Desviación típica
+  Fila 2: Edad (años) | 10,00 | 23,90 | 35,00 | 6,70
+  Fila 3: Densidad de pies (pies/ha) | 27,60 | 230,00 | 587,00 | 109,00
+  Fila 4: DBH (cm) | 4,98 | 18,30 | 27,40 | 4,65
+  Fila 5: Altura total (m) | 2,53 | 6,11 | 9,35 | 1,43
+  Fila 6: CO2 equivalente/pie (tonCO2eq/pie) | 0,02 | 0,19 | 0,43 | 0,12
+
+[TABLA 8] (9 filas x 3 columnas)
+  Fila 1: Especie | Nivel tipo de ecuación | Ecuación
+  Fila 2: Pinus pinea | Richards – Chapman (kg/ha) | 
+  Fila 3: Quercus ilex | Alométrica (kg/ha) | 
+  Fila 4: Quercus pyrenaica | Richards – Chapman (kg/ha | 
+  Fila 5: Quercus faginea | Árbol medio (kg/pie) | 
+  Fila 6: Castanea sativa | Alométrica (kg/ha) | 
+  Fila 7: Ceratonia siliqua | Alométrica (kg/ha) | 
+  Fila 8: Olea europaea | Alométrica (kg/ha) | 
+  Fila 9: Juglans regia, Celtis australis | Alométrica (kg/ha) | 

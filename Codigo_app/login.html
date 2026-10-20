@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Iniciar Sesión | Plataforma Digital para Proyectos de Absorción de Carbono - IDAF</title>
+
+  <!-- Favicon corporativo IDAF -->
+  <link rel="icon" type="image/png" href="assets/logo_idaf_isotipo.png">
+
+  <!-- Tipografía Corporativa Oficial: Poppins -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome 6 Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+
+  <!-- Google Identity Services (GIS) SDK Oficial -->
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+
+  <!-- Hoja de estilos -->
+  <link rel="stylesheet" href="css/styles.css">
+
+  <style>
+    .login-wrapper {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background: linear-gradient(135deg, rgba(0, 80, 39, 0.04) 0%, rgba(118, 183, 43, 0.08) 100%), #f9fafb;
+    }
+
+    .login-container {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 30px 20px;
+    }
+
+    .login-card {
+      background-color: #ffffff;
+      border: 1px solid var(--slate-200);
+      border-top: 5px solid var(--idaf-dark-green);
+      border-radius: 16px;
+      max-width: 480px;
+      width: 100%;
+      padding: 40px 36px;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+      text-align: center;
+      position: relative;
+    }
+
+    .login-logo {
+      height: 54px;
+      width: auto;
+      margin-bottom: 24px;
+      object-fit: contain;
+    }
+
+    .login-title {
+      font-size: 19px;
+      font-weight: 700;
+      color: var(--idaf-dark-green);
+      line-height: 1.35;
+      margin-bottom: 8px;
+    }
+
+    .login-subtitle {
+      font-size: 13px;
+      color: var(--slate-500);
+      margin-bottom: 30px;
+    }
+
+    .login-divider {
+      display: flex;
+      align-items: center;
+      margin: 24px 0;
+      color: var(--slate-500);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .login-divider::before, .login-divider::after {
+      content: '';
+      flex: 1;
+      border-bottom: 1px solid var(--slate-200);
+    }
+
+    .login-divider span {
+      padding: 0 12px;
+    }
+
+    .google-btn-wrapper {
+      display: flex;
+      justify-content: center;
+      min-height: 44px;
+      margin-bottom: 16px;
+    }
+
+    .btn-google-custom {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      width: 100%;
+      padding: 11px 18px;
+      background-color: #ffffff;
+      color: #374151;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      font-family: 'Poppins', sans-serif;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    }
+
+    .btn-google-custom:hover {
+      background-color: #f9fafb;
+      border-color: #9ca3af;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+    }
+
+    .btn-demo {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      padding: 12px 18px;
+      background-color: var(--idaf-dark-green);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      font-family: 'Poppins', sans-serif;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-demo:hover {
+      background-color: var(--idaf-dark-hover);
+      box-shadow: 0 4px 10px rgba(0, 80, 39, 0.25);
+    }
+
+    .login-info-box {
+      background-color: var(--idaf-light-light);
+      border: 1px solid rgba(118, 183, 43, 0.35);
+      border-radius: 8px;
+      padding: 12px 14px;
+      margin-top: 24px;
+      font-size: 12px;
+      color: var(--idaf-dark-green);
+      text-align: left;
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+
+    .login-info-box i {
+      font-size: 16px;
+      margin-top: 2px;
+      color: var(--idaf-light-green);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="login-wrapper">
+
+    <!-- BARRA SUPERIOR MÍNIMA -->
+    <header style="padding: 16px 30px; display: flex; justify-content: space-between; align-items: center;">
+      <a href="https://www.idaf.es" target="_blank" title="IDAF">
+        <img src="assets/logo_idaf_horizontal.png" alt="IDAF" style="height: 38px; width: auto;">
+      </a>
+      <span style="font-size: 12px; color: var(--slate-500); font-weight: 500;">
+        <i class="fa-solid fa-shield-halved" style="color: var(--idaf-light-green);"></i> Acceso Seguro SSL
+      </span>
+    </header>
+
+    <!-- TARJETA DE LOGIN -->
+    <main class="login-container">
+      <div class="login-card">
+        
+        <!-- LOGOTIPO IDAF -->
+        <img src="assets/logo_idaf_horizontal.png" alt="IDAF Agroforestal" class="login-logo">
+
+        <h1 class="login-title">Plataforma Digital para Proyectos de Absorción de Carbono</h1>
+        <p class="login-subtitle">Inicia sesión para gestionar inventarios, estimar créditos de carbono y emitir reportes técnicos de certificación.</p>
+
+        <!-- BOTÓN OFICIAL DE GOOGLE IDENTITY SERVICES -->
+        <div id="google-signin-container" class="google-btn-wrapper"></div>
+
+        <!-- BOTÓN GOOGLE INTERACTIVO CON DETECCIÓN DE CLIENT ID -->
+        <button id="btn-google-login" class="btn-google-custom" type="button">
+          <svg width="18" height="18" viewBox="0 0 18 18">
+            <path fill="#4285F4" d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.874 2.684-6.616z"/>
+            <path fill="#34A853" d="M9 18c2.43 0 4.467-.806 5.956-2.184l-2.908-2.258c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332C2.438 15.983 5.482 18 9 18z"/>
+            <path fill="#FBBC05" d="M3.964 10.707c-.18-.54-.282-1.117-.282-1.707s.102-1.167.282-1.707V4.961H.957C.347 6.175 0 7.55 0 9s.347 2.825.957 4.039l3.007-2.332z"/>
+            <path fill="#EA4335" d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0 5.482 0 2.438 2.017.957 4.961L3.964 7.293C4.672 5.166 6.656 3.58 9 3.58z"/>
+          </svg>
+          <span>Iniciar sesión con Google</span>
+        </button>
+
+        <div class="login-divider">
+          <span>O acceso directo</span>
+        </div>
+
+        <!-- ACCESO RÁPIDO / DEMO TÉCNICO -->
+        <button id="btn-demo-login" class="btn-demo" type="button">
+          <i class="fa-solid fa-user-check"></i>
+          <span>Entrar como Técnico IDAF (Demo)</span>
+        </button>
+
+        <!-- AVISO TÉCNICO -->
+        <div class="login-info-box">
+          <i class="fa-solid fa-circle-info"></i>
+          <div>
+            <strong>Autenticación corporativa:</strong> Puedes vincular el <code>Client ID</code> de Google Cloud en <code>js/config.js</code> para restringir el acceso a cuentas autorizadas de tu organización o clientes.
+          </div>
+        </div>
+
+      </div>
+    </main>
+
+    <!-- PIE DE PÁGINA CORPORATIVO -->
+    <footer class="app-footer">
+      <div style="display: flex; justify-content: center; align-items: center; gap: 8px; margin-bottom: 4px;">
+        <img src="assets/logo_idaf_isotipo.png" alt="IDAF" style="height: 18px; width: auto;">
+        <strong><a href="https://www.idaf.es" target="_blank">IDAF • Centro de Investigaciones Aplicadas al Desarrollo Agroforestal S.L.</a></strong>
+      </div>
+      <p style="font-size: 11.5px; color: #9ca3af;">Campus de Rabanales • Edificio Leonardo Da Vinci • Córdoba, España</p>
+    </footer>
+
+  </div>
+
+  <!-- Script de Autenticación -->
+  <script type="module">
+    import { AuthManager } from './js/core/auth.js';
+    import { CONFIG } from './js/config.js';
+
+    // Si ya está autenticado, redirigir directamente al panel
+    if (AuthManager.isAuthenticated()) {
+      window.location.href = 'index.html';
+    }
+
+    // Inicializar Google Sign-In SDK
+    AuthManager.initGoogleSignIn('google-signin-container');
+
+    // Botón de login con Google manual
+    const btnGoogle = document.getElementById('btn-google-login');
+    if (btnGoogle) {
+      btnGoogle.addEventListener('click', () => {
+        const isPlaceholder = CONFIG.AUTH.GOOGLE_CLIENT_ID.includes("YOUR_GOOGLE_CLIENT_ID");
+        if (isPlaceholder) {
+          // Si aún no ha configurado el Client ID real de Google Cloud, ofrecer iniciar con demo
+          const proceder = confirm(
+            "El ID de cliente de Google aún está en modo plantilla (YOUR_GOOGLE_CLIENT_ID).\n\n" +
+            "¿Deseas ingresar en modo técnico/demostración para probar la plataforma de inmediato?"
+          );
+          if (proceder) {
+            AuthManager.loginDemo();
+          }
+        } else {
+          /* global google */
+          if (typeof google !== 'undefined' && google.accounts && google.accounts.id) {
+            google.accounts.id.prompt();
+          } else {
+            alert("El servicio de Google no se encuentra disponible temporalmente.");
+          }
+        }
+      });
+    }
+
+    // Botón de acceso demo técnico
+    const btnDemo = document.getElementById('btn-demo-login');
+    if (btnDemo) {
+      btnDemo.addEventListener('click', () => {
+        AuthManager.loginDemo();
+      });
+    }
+  </script>
+
+</body>
+</html>

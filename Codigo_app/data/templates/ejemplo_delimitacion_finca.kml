@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+  <Document>
+    <name>Delimitación Finca La Dehesilla</name>
+    <description>Polígono de ejemplo para la Plataforma Digital de Proyectos de Absorción de Carbono - IDAF</description>
+    <Placemark>
+      <name>Rodal 1 - Sierra de Cardeña</name>
+      <Polygon>
+        <extrude>1</extrude>
+        <altitudeMode>clampToGround</altitudeMode>
+        <outerBoundaryIs>
+          <LinearRing>
+            <coordinates>
+              -4.3215,38.2541,0
+              -4.3082,38.2588,0
+              -4.2985,38.2492,0
+              -4.3050,38.2395,0
+              -4.3198,38.2430,0
+              -4.3215,38.2541,0
+            </coordinates>
+          </LinearRing>
+        </outerBoundaryIs>
+      </Polygon>
+    </Placemark>
+  </Document>
+</kml>

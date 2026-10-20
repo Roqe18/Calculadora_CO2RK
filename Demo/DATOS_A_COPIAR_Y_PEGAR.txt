@@ -1,0 +1,161 @@
+================================================================================
+DATOS LISTOS PARA COPIAR Y PEGAR — DEMO CALCULADORA CO2 (IDAF)
+================================================================================
+Proyecto modelo: Finca "La Dehesilla y El Robledal" (Córdoba)
+Actuación: 2. Densificaciones (Alcornocal senescente de Quercus suber)
+Superficie: 45.20 hectáreas
+================================================================================
+
+--------------------------------------------------------------------------------
+ACCESO / LOGIN (login.html)
+--------------------------------------------------------------------------------
+Opción rápida para demostraciones:
+Hacer clic en el botón verde:
+[ Acceder en Modo Demo / Invitado Técnico ]
+
+(Opcional) Si se usa Google Login, iniciar sesión con cualquier cuenta autorizada.
+
+
+--------------------------------------------------------------------------------
+PASO 1: DATOS GENERALES DEL PROYECTO, KML Y ELEGIBILIDAD
+--------------------------------------------------------------------------------
+
+[CAMPO 1] Nombre del Proyecto:
+Proyecto Fijación Carbono La Dehesilla
+
+[CAMPO 2] Titular / Propietario:
+Agropecuaria Sierra Morena S.L.
+
+[CAMPO 3] NIF / CIF del Titular:
+B-14987654
+
+[CAMPO 4] Nombre de la Finca o Monte:
+Finca La Dehesilla y El Robledal
+
+[CAMPO 5] Comunidad Autónoma:
+Andalucía
+(Seleccionar en el desplegable)
+
+[CAMPO 6] Provincia:
+Córdoba
+
+[CAMPO 7] Término Municipal:
+Cardeña
+
+[CAMPO 8] Referencia Catastral:
+14016A014000250000EK
+
+[CAMPO 9] Especie Principal / Masa:
+Quercus suber (Alcornoque)
+(Seleccionar en el desplegable)
+
+[CAMPO 10] Régimen / Tratamiento Actual:
+Monte alcornocal adehesado en régimen extensivo
+(Seleccionar en el desplegable)
+
+[CAMPO 11] Actuación / Estrategia de Créditos (CLAVE):
+2. Densificaciones
+(Seleccionar en el desplegable)
+
+[RECUADRO 12] Archivo de Memoria Técnica PDF:
+Arrastrar el archivo:
+Memoria_Tecnica_Elegibilidad_La_Dehesilla.pdf
+(Ubicado en esta misma carpeta Demo)
+
+[RECUADRO 13] Delimitación Cartográfica KML:
+Arrastrar el archivo:
+Delimitacion_Finca_La_Dehesilla.kml
+(Ubicado en esta misma carpeta Demo)
+
+-> En el visor satelital aparecerá el polígono verde y la etiqueta:
+Superficie: 45.20 ha
+
+[BOTÓN 15] Avanzar:
+Hacer clic en el botón:
+[ Continuar a Inventario Forestal (Paso 2) -> ]
+
+
+--------------------------------------------------------------------------------
+PASO 2: INVENTARIO FORESTAL PIE A PIE, DENSIDAD Y PARÁMETROS
+--------------------------------------------------------------------------------
+
+[CAMPO 2A] Periodo de Acreditación (Años):
+30
+
+[CAMPO 2B] Buffer de Riesgo / Permanencia (%):
+15
+
+[CAMPO 2C] Precio Orientativo (€ / t CO2e):
+25.0
+
+[RECUADRO 3] Archivo de Inventario Pie a Pie:
+Arrastrar CUALQUIERA de estos dos archivos (ambos contienen 30 árboles):
+Inventario_Forestal_La_Dehesilla.csv
+   o bien
+Inventario_Forestal_La_Dehesilla.xlsx
+
+[CAMPO 4] Modalidad de Inventario:
+Seleccionar la opción de radiobutton:
+(*) Muestreo en Parcelas (extrapolación a finca)
+
+[CAMPO 5] Superficie Muestreada (ha):
+1.00
+(Indica que los 30 árboles del archivo se midieron en una parcela de 1 hectárea)
+
+-> La densidad resultante calculada automáticamente será:
+Densidad estimada: 30 pies/ha
+Total árboles en finca: 1,356 árboles en finca (30 pies/ha x 45.20 ha)
+
+[CAMPO 7A] Tipo de Matorral (Montero et al., 2020):
+A19 – Mancha mediterránea
+(Seleccionar en el desplegable)
+
+[CAMPO 7B] FCC del Matorral (%):
+25
+
+[CAMPO 7C] Altura Media Matorral (dm):
+9.0
+(Nota: 9.0 decímetros = 90 cm. Biomasa matorral resultante: 2.45 t/ha)
+
+[CAMPO 8A] Edad Actual Estimada de la Masa (años):
+45
+
+[CAMPO 8B] Potencialidad Bioclimática (0.1 - 1.0):
+0.85
+(Estándar del modelo LIFE D6.2 para Andalucía / Alentejo)
+
+[CAMPO 8C] Densidad Añadida a Plantar (pies/ha):
+150
+(Representa los 150 nuevos plantones de Quercus suber con protector individual)
+
+[BOTÓN 11] Ejecutar Cálculo:
+Hacer clic en el botón verde inferior:
+[ Ejecutar Cálculos y Ver Resultados (Paso 3) -> ]
+
+
+--------------------------------------------------------------------------------
+PASO 3: RESULTADOS ESPERADOS (PARA VALIDAR LA DEMO)
+--------------------------------------------------------------------------------
+Si todo se cargó correctamente, en la pantalla final verás:
+
+1. Acreditación metodológica oficial LIFE Deliverable D6.2 (Ruiz-Peinado 2012 / IDAF).
+2. Tarjetas de Indicadores Clave (KPIs):
+   - Créditos Netos Totales: ~3,142.80 t CO2e (acumulado verificable a 30 años)
+   - Créditos Medios Anuales: ~104.76 t CO2e/año
+   - Rendimiento por Hectárea: ~69.53 t CO2e/ha
+   - Valor Económico Estimado: ~78,570.00 € (a 25.0 €/t)
+   - Reserva de Riesgo (Buffer 15%): ~554.61 t CO2e
+
+3. Gráficas interactivas:
+   - Evolución del Stock: Línea Base (azul discontinua) vs Proyecto IFM (verde continua).
+   - Generación de Créditos: Barras anuales + Línea acumulada ascendente.
+
+4. Tabla año a año (Años 1 a 30) lista para auditoría.
+
+5. Botones de entrega:
+   - [ Exportar a Excel (.xlsx) ] -> Descarga archivo con la serie temporal.
+   - [ Emitir Informe Técnico Completo ] -> Genera PDF oficial pericial para MITECO.
+
+================================================================================
+FIN DE DATOS PARA COPIAR Y PEGAR — IDAF 2026
+================================================================================

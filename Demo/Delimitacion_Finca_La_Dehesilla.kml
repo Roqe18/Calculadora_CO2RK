@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+  <Document>
+    <name>Delimitacion Finca La Dehesilla y El Robledal</name>
+    <description>Perimetro de rodal de 45.20 ha en Cardeña (Cordoba) para la Plataforma Digital de Proyectos de Absorcion de Carbono - IDAF</description>
+    <Placemark>
+      <name>Rodal 1 - Alcornocal Sierra Morena (45.20 ha)</name>
+      <Polygon>
+        <extrude>1</extrude>
+        <altitudeMode>clampToGround</altitudeMode>
+        <outerBoundaryIs>
+          <LinearRing>
+            <coordinates>
+              -4.315000,38.250000,0
+              -4.307431,38.250911,0
+              -4.306485,38.254806,0
+              -4.309323,38.256463,0
+              -4.314054,38.255717,0
+              -4.316261,38.253149,0
+              -4.315000,38.250000,0
+            </coordinates>
+          </LinearRing>
+        </outerBoundaryIs>
+      </Polygon>
+    </Placemark>
+  </Document>
+</kml>

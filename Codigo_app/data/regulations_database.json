@@ -1,0 +1,141 @@
+{
+  "regions": [
+    {
+      "id": "andalucia",
+      "name": "Andalucía",
+      "law_reference": "Ley 2/1992 Forestal de Andalucía y Plan Forestal",
+      "min_retention_basal_area": 12,
+      "max_thinning_intensity_pct": 25,
+      "standard_harvest_coppice_age": 25
+    },
+    {
+      "id": "extremadura",
+      "name": "Extremadura",
+      "law_reference": "Ley de Dehesas y Montes de Extremadura",
+      "min_retention_basal_area": 12,
+      "max_thinning_intensity_pct": 25,
+      "standard_harvest_coppice_age": 25
+    },
+    {
+      "id": "castilla_y_leon",
+      "name": "Castilla y León",
+      "law_reference": "Ley 3/2009 de Montes de Castilla y León",
+      "min_retention_basal_area": 15,
+      "max_thinning_intensity_pct": 30,
+      "standard_harvest_coppice_age": 30
+    },
+    {
+      "id": "castilla_la_mancha",
+      "name": "Castilla-La Mancha",
+      "law_reference": "Ley 3/2008 de Montes de Castilla-La Mancha",
+      "min_retention_basal_area": 14,
+      "max_thinning_intensity_pct": 25,
+      "standard_harvest_coppice_age": 25
+    },
+    {
+      "id": "galicia",
+      "name": "Galicia",
+      "law_reference": "Ley 7/2012 de Montes de Galicia",
+      "min_retention_basal_area": 14,
+      "max_thinning_intensity_pct": 35,
+      "standard_harvest_coppice_age": 15
+    },
+    {
+      "id": "cataluna",
+      "name": "Cataluña",
+      "law_reference": "Ley 6/1988 Forestal de Cataluña",
+      "min_retention_basal_area": 14,
+      "max_thinning_intensity_pct": 25,
+      "standard_harvest_coppice_age": 25
+    },
+    {
+      "id": "general_iberica",
+      "name": "Marco General Ibérico / Estatal",
+      "law_reference": "Ley 43/2003 de Montes (Directrices Básicas)",
+      "min_retention_basal_area": 12,
+      "max_thinning_intensity_pct": 30,
+      "standard_harvest_coppice_age": 25
+    },
+    {
+      "id": "life_climate_positive",
+      "name": "Marco LIFE ClimatePositive (Europeo)",
+      "law_reference": "Regolamenti Forestali LIFE ClimatePositive (Standard IFM)",
+      "min_retention_basal_area": 16,
+      "max_thinning_intensity_pct": 25,
+      "standard_harvest_coppice_age": 30
+    }
+  ],
+  "treatments": [
+    {
+      "id": "monte_alto",
+      "name": "Monte alto (Fustal / Dehesa)",
+      "description": "Masa procedente de semilla, con regeneración natural o repoblación y vuelo regular o irregular."
+    },
+    {
+      "id": "monte_bajo",
+      "name": "Monte bajo (Chirpial / Ceduo)",
+      "description": "Masa originada por brotes de cepa o raíz, con turnos cortos de aprovechamiento."
+    },
+    {
+      "id": "monte_medio",
+      "name": "Monte medio",
+      "description": "Combinación de fustal disperso (resalveos/vuelo superior) con monte bajo inferior."
+    }
+  ],
+  "strategies": [
+    {
+      "id": "plantaciones",
+      "name": "1. Plantaciones",
+      "description": "Establecimiento de nuevas masas forestales sobre terrenos agrícolas marginales o forestales desarbolados.",
+      "annual_carbon_bonus_factor": 1.0,
+      "eligibility_criteria": [
+        "Terreno desarbolado o en situación de abandono agrícola/pastizal sin cubierta arbórea previa (adicionalidad estricta).",
+        "Ausencia de afección negativa a hábitats naturales prioritarios o pastizales protegidos de alto valor ambiental.",
+        "Densidad de planta inicial adecuada a la estación ecológica y especie principal seleccionada (ej. 200 - 600 pies/ha).",
+        "Compromiso formal de mantenimiento, reposición de marras y permanencia del sumidero superior a 30 años."
+      ]
+    },
+    {
+      "id": "densificaciones",
+      "name": "2. Densificaciones",
+      "description": "Enriquecimiento y aumento de la densidad arbórea en masas abiertas, dehesas envejecidas o alcornocales con regeneración deficiente.",
+      "annual_carbon_bonus_factor": 1.0,
+      "eligibility_criteria": [
+        "Masa forestal existente con espesura deficiente o arbolado envejecido (ej. dehesas o alcornocales abiertos con FCC < 20-30%).",
+        "Regeneración natural espontánea insuficiente para asegurar la persistencia y cobertura del dosel a largo plazo.",
+        "Aumento planificado de existencias mediante introducción de planta nueva o densificación con protectores.",
+        "Compatibilidad con el aprovechamiento ganadero o silvopastoral mediante medidas de protección individual o zonificación."
+      ]
+    },
+    {
+      "id": "cerramientos",
+      "name": "3. Cerramientos",
+      "description": "Exclusión temporal de la herbivoría (ganadera y cinegética) para inducir y consolidar la regeneración natural y el matorral.",
+      "annual_carbon_bonus_factor": 1.0,
+      "eligibility_criteria": [
+        "Presencia acreditada de árboles semilleros (pies madre), banco de semillas activo o brinzales incipientes en la parcela.",
+        "Presión herbívora limitante (ganadería extensiva o ungulados silvestres: ciervo, corzo, jabalí) que impide el arraigo.",
+        "Instalación y mantenimiento de cerramiento perimetral de exclusión temporal durante el periodo crítico de desarrollo.",
+        "Plan de control y seguimiento de la supervivencia del regenerado dentro de los recintos protegidos."
+      ]
+    }
+  ],
+  "shrub_groups": [
+    { "id": "A12", "name": "A12 – Setos, bardas, orlas", "form": 1, "a": 0.6441192, "b1": 0, "b2": 0 },
+    { "id": "A13", "name": "A13 – Bujedos", "form": 2, "a": 4.515059, "b1": 0, "b2": 0.428802 },
+    { "id": "A15", "name": "A15 – Arbustedos Quercus ilex", "form": 2, "a": 0.3768846, "b1": 0, "b2": 1.0172503 },
+    { "id": "A16", "name": "A16 – Sabinares, enebrales", "form": 2, "a": 0.8170986, "b1": 0, "b2": 1.2403275 },
+    { "id": "A17", "name": "A17 – Coscojares más o menos puros", "form": 3, "a": 2.0135328, "b1": 0.8191936, "b2": 0.9125035 },
+    { "id": "A18", "name": "A18 – Lentiscares", "form": 2, "a": 2.5800701, "b1": 0, "b2": 0.8037841 },
+    { "id": "A19", "name": "A19 – Mancha mediterránea", "form": 1, "a": 1.628329, "b1": 0, "b2": 0 },
+    { "id": "A19A", "name": "A19A – Garrigas", "form": 3, "a": 4.772295, "b1": 0.591833, "b2": 1.227138 },
+    { "id": "A22", "name": "A22 – Brezales", "form": 2, "a": 2.0483619, "b1": 0, "b2": 0.8613609 },
+    { "id": "A23", "name": "A23 – Leguminosas retamoideas", "form": 3, "a": 9.018966, "b1": 0.32999, "b2": 0.419907 },
+    { "id": "A24", "name": "A24 – Leguminosas aulagoides y afines", "form": 3, "a": 1.4901824, "b1": 0.98885, "b2": 1.0275925 },
+    { "id": "A25", "name": "A25 – Jarales", "form": 2, "a": 1.7397887, "b1": 0, "b2": 0.884211 },
+    { "id": "A26", "name": "A26 – Tomillares", "form": 2, "a": 1.378164, "b1": 0, "b2": 0.999194 },
+    { "id": "A27", "name": "A27 – Cubiertas mixtas", "form": 2, "a": 1.7222769, "b1": 0, "b2": 0.7768124 },
+    { "id": "A35", "name": "A35 – Atochares, espartizales", "form": 1, "a": 0.9808213, "b1": 0, "b2": 0 },
+    { "id": "EC_GENERAL", "name": "Matorral mediterráneo general", "form": 2, "a": 1.8255065, "b1": 0, "b2": 0.8844 }
+  ]
+}

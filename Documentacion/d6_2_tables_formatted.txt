@@ -1,0 +1,91 @@
+================ Table_2 ================
+Especie | Fracción | Ecuación
+Quercus suber | Fuste | Bf = 0,00525·d²·h + 0,278·d·h
+Quercus suber | Ramas gruesas (>7 cm) | Br7 = 0,0135·d²·h
+Quercus suber | Ramas medias (2–7 cm) | Br2-7 = 0,127·d·h
+Quercus suber | Ramillas (<2 cm) + hojas | Br2+h = 0,0463·d·h
+Quercus suber | Raíces | Brad = 0,0829·d²
+
+================ Table_3 ================
+Especie | Fracción | Ecuación
+Pinus pinea | Fuste | Bf = 0,0224·d^1,923·h^1,0193
+Pinus pinea | Ramas gruesas (>7 cm) | Br7 = 0,247·(d−22,5)²·Z; Z = 1 si d > 22,5 cm; 0 en otro caso
+Pinus pinea | Ramas medias (2–7 cm) | Br2-7 = 0,0525·d²
+Pinus pinea | Ramillas (<2 cm) + acículas | Br2+h = 21,927 + 0,0707·d² − 2,827·h
+Pinus pinea | Raíces | Brad = 0,117·d²
+Quercus faginea | Fuste | Bf = 0,154·d²
+Quercus faginea | Ramas gruesas (>7 cm) | Br7 = 0,0861·d²
+Quercus faginea | Ramas medias (2–7 cm) | Br2-7 = 0,127·d² − 0,00598·d²·h
+Quercus faginea | Ramillas (<2 cm) + hojas | Br2+h = 0,0726·d² − 0,00275·d²·h
+Quercus faginea | Raíces | Brad = 0,169·d²
+Quercus pyrenaica | Fuste + ramas gruesas | Bf+r7 = 0,0261·d²·h
+Quercus pyrenaica | Ramas medias (2–7 cm) | Br2-7 = −0,0260·d² + 0,536·h + 0,00538·d²·h
+Quercus pyrenaica | Ramillas (<2 cm), sin hojas | Br2 = 0,898·d − 0,445·h
+Quercus pyrenaica | Raíces | Brad = 0,143·d²
+Quercus canariensis | Fuste | Bf = 0,0126·d²·h
+Quercus canariensis | Ramas gruesas (>7 cm) | Br7 = 0,103·d²
+Quercus canariensis | Ramas medias + ramillas + hojas | Br2-7+2+h = 0,167·d·h
+Quercus canariensis | Raíces | Brad = 0,135·d²
+Quercus ilex | Fuste | Bf = 0,143·d²
+Quercus ilex | Ramas gruesas (>7 cm) | Br7 = 0,0684·(d−12,5)²·h·Z; Z = 1 si d > 12,5 cm; 0 en otro caso
+Quercus ilex | Ramas medias (2–7 cm) | Br2-7 = 0,0898·d²
+Quercus ilex | Ramillas (<2 cm) + hojas | Br2+h = 0,0824·d²
+Quercus ilex | Raíces | Brad = 0,254·d²
+Castanea sativa | Fuste | Bf = 0,0142·d²·h
+Castanea sativa | Ramas gruesas (>7 cm) | Br7 = 0,223·(d−12,5)²·Z; Z = 1 si d > 12,5 cm; 0 en otro caso
+Castanea sativa | Ramas medias (2–7 cm) | Br2-7 = 0,230·d·h
+Castanea sativa | Ramillas (<2 cm), sin hojas | Br2 = 0,221·d·h
+Castanea sativa | Raíces | Brad = 0,0211·d^2,804
+Ceratonia siliqua | Fuste | Bf = 0,142·d^1,974
+Ceratonia siliqua | Ramas gruesas (>7 cm) | Br7 = 0,104·d²
+Ceratonia siliqua | Ramas medias (2–7 cm) | Br2-7 = 0,0538·d²
+Ceratonia siliqua | Ramillas (<2 cm) + hojas | Br2+h = 0,151·d² − 0,00740·d²·h
+Ceratonia siliqua | Raíces | Brad = 0,335·d²
+Olea europaea var. sylvestris | Fuste | Bf = 0,0114·d²·h
+Olea europaea var. sylvestris | Ramas gruesas (>7 cm) | Br7 = 0,0108·d²·h
+Olea europaea var. sylvestris | Ramas medias (2–7 cm) | Br2-7 = 1,672·d
+Olea europaea var. sylvestris | Ramillas (<2 cm) + hojas | Br2+h = 0,0354·d² + 1,187·h
+Olea europaea var. sylvestris | Raíces | Brad = 0,147·d²
+Celtis australis | Biomasa Área Total | Ba = 0,15335 *d^2,29843
+Celtis australis | Raíces | Brad = 0,25159 *d^1,96764
+Juglans regia | Biomasa Área Total | Ba = 0,15335 *d^2,29843
+Juglans regia | Raíces | Brad = 0,25159 *d^1,96764
+
+================ Table_4 ================
+Agrupación | Biomasa matorral (tn/ha) | a | b1 | b2
+A12 – Setos, bardas, orlas | a*h*asin(sqrt(fcc/100)) | 0,6441192 | 0 | 0
+A13 – Bujedos | a*((h*asin(sqrt(fcc/100)))^b2) | 4,515059 | 0 | 0,428802
+A15 – Arbustedos Quercus ilex | a*((h*asin(sqrt(fcc/100)))^b2) | 0,3768846 | 0 | 1,0172503
+A16 – Sabinares, enebrales | a*((h*asin(sqrt(fcc/100)))^b2) | 0,8170986 | 0 | 1,2403275
+A17 – Coscojares más o menos puros | a*(((h^b1)*asin(sqrt(fcc/100)))^b2) | 2,0135328 | 0,8191936 | 0,9125035
+A18 – Lentiscares | a*((h*asin(sqrt(fcc/100)))^b2) | 2,5800701 | 0 | 0,8037841
+A19 – Mancha mediterránea | a*(h*asin(sqrt(fcc/100)) | 1,628329 | 0 | 0
+A19A – Garrigas | a*(((h^b1)*asin(sqrt(fcc/100)))^b2) | 4,772295 | 0,591833 | 1,227138
+A22 – Brezales | a*((h*asin(sqrt(fcc/100)))^b2) | 2,0483619 | 0 | 0,8613609
+A23 – Leguminosas retamoideas | a*(((h^b1)*asin(sqrt(fcc/100)))^b2) | 9,018966 | 0,32999 | 0,419907
+A24 – Leguminosas aulagoides y afines | a*((h^b1)*asin(sqrt(fcc/100))^b2) | 1,4901824 | 0,98885 | 1,0275925
+A25 – Jarales | a*((h*asin(sqrt(fcc/100)))^b2) | 1,7397887 | 0 | 0,884211
+A26 – Tomillares | a*((h*asin(sqrt(fcc/100)))^b2) | 1,378164 | 0 | 0,999194
+A27 – Cubiertas mixtas | a*((h*asin(sqrt(fcc/100)))^b2) | 1,7222769 | 0 | 0,7768124
+A35 – Atochares, espartizales | a*h*asin(sqrt(fcc/100)) | 0,9808213 | 0 | 0
+EC_GENERAL | a*((h*asin(sqrt(fcc/100)))^b2) | 1,8255065 | 0 | 0,8844
+
+================ Table_7 ================
+Variable | Valor mínimo | Valor medio | Valor máximo | Desviación típica
+Edad (años) | 10,00 | 23,90 | 35,00 | 6,70
+Densidad de pies(pies/ha) | 27,60 | 230,00 | 587,00 | 109,00
+DBH (cm) | 4,98 | 18,30 | 27,40 | 4,65
+Altura total (m) | 2,53 | 6,11 | 9,35 | 1,43
+CO2 equivalente/pie(tonCO2eq/pie) | 0,02 | 0,19 | 0,43 | 0,12
+
+================ Table_8 ================
+Especie | Nivel tipo de ecuación | Ecuación
+Pinus pinea | Richards – Chapman (kg/ha) | Btot =37,5887 N+1657,3 M1-e-0,0998 T4,5652
+Quercus ilex | Alométrica (kg/ha) | Btot=1,2437⋅T 1,4275+0,000725 ppm+0,0667 tm+0,000433 N
+Quercus pyrenaica | Richards – Chapman (kg/ha | Btot=-81160,3+218,2 N1-e-0,0006 T0,6495
+Quercus faginea | Árbol medio (kg/pie) | bm=0,000033⋅T 4,0360+0,0336 tm-0,00022 N
+Castanea sativa | Alométrica (kg/ha) | Btot=9,5388⋅T 1,7251+0,00091 ppm+0,00037 N
+Ceratonia siliqua | Alométrica (kg/ha) | Btot=1787,7⋅T 0,00103 ppm+0,000141 N
+Olea europaea | Alométrica (kg/ha) | Btot=213,7⋅T 0,3467+0,00129 ppm+0,00095 N
+Juglans regia, Celtis australis | Alométrica (kg/ha) | Btot=81,1826+0,0696 N⋅T 1,6130
+

@@ -1,0 +1,9 @@
+Row 0: Especie | Nivel tipo de ecuación | Ecuación
+Row 1: Pinus pinea | Richards – Chapman (kg/ha) | B_tot =(37,5887 N+1657,3 M)((1-(e)^(-0,0998 T)))^(4,5652)
+Row 2: Quercus ilex | Alométrica (kg/ha) | B_tot=1,2437⋅(T)^( 1,4275+0,000725 pp_m+0,0667 tm+0,000433 N)
+Row 3: Quercus pyrenaica | Richards – Chapman (kg/ha | B_tot=(-81160,3+218,2 N)((1-(e)^(-0,0006 T)))^(0,6495)
+Row 4: Quercus faginea | Árbol medio (kg/pie) | b_m=0,000033⋅(T)^( 4,0360+0,0336 tm-0,00022 N)
+Row 5: Castanea sativa | Alométrica (kg/ha) | B_tot=9,5388⋅(T)^( 1,7251+0,00091 pp_m+0,00037 N)
+Row 6: Ceratonia siliqua | Alométrica (kg/ha) | B_tot=1787,7⋅(T)^( 0,00103 pp_m+0,000141 N)
+Row 7: Olea europaea | Alométrica (kg/ha) | B_tot=213,7⋅(T)^( 0,3467+0,00129 pp_m+0,00095 N)
+Row 8: Juglans regia, Celtis australis | Alométrica (kg/ha) | B_tot=(81,1826+0,0696 N)⋅(T)^( 1,6130)
