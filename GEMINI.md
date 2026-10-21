@@ -114,7 +114,7 @@ Calculadora_CO2RK/
 ---
 
 ### 8. Módulo Móvil PWA Offline: IDAF Campo (`field.html`)
-- **Objetivo:** Permitir a los ingenieros y técnicos de campo registrar inventarios pie a pie en montes y dehesas sin cobertura móvil, garantizando persistencia local y exportación 100% compatible con el Paso 2.
+- **Objetivo:** Permitir a los ingenieros y técnicos de campo registrar inventarios pie a pie en montes, dehesas y alcornocales sin cobertura móvil, garantizando persistencia local y exportación 100% compatible con el Paso 2 de la plataforma IDAF.
 - **Tecnología:** PWA (Progressive Web App) con Service Worker (`sw.js`) y almacenamiento local en `IndexedDB` (`fieldStorage.js`).
 - **Ergonomía solar y táctil a una mano:**
   - Botones táctiles $\ge 48\text{px}$ de alto contraste solar (Pantone 357 C `#005027` y Pantone 368 C `#76B72B`).
@@ -122,10 +122,18 @@ Calculadora_CO2RK/
   - Teclado numérico decimal directo (`inputmode="decimal"`) para `DBH` y `Altura`.
   - Auto-incremento de ID de árbol (`ARB_001`, `ARB_002`...).
   - Cálculo alométrico instantáneo de biomasa (kg) y $\text{tCO}_2$ con Ruiz-Peinado et al. (2012) en cada inserción.
-- **Exportación e Interoperabilidad:**
-  - Descarga directa de archivo CSV oficial con cabecera `ID,Especie,DBH,Altura` y codificación UTF-8 con BOM.
-  - Descarga de libro Excel `.xlsx` local mediante SheetJS.
-  - Formulario modal integral: captura tanto datos del Proyecto (Paso 1: Titular, NIF, Finca, Provincia, Municipio, Ref. Catastral, Sup. Finca) como de Matorral (Montero et al., 2020: Tipo, FCC%, Altura dm, FCC meta) con cálculo en vivo de biomasa de matorral.
-  - Puente directo a la Calculadora IDAF: inyección en 1 clic hacia el Paso 2 vía `localStorage` (`idaf_field_pending_import`), auto-completando automáticamente el Paso 1 (proyecto, KML/PDF provisional de campo) y el Paso 2 (árboles, densidad, matorral completo) para permitir calcular el Paso 3 directamente en el móvil u offline sin bloqueos.
-  - Soporte offline universal: el Service Worker cachea la plataforma completa (`field.html` + `index.html`), permitiendo operar 100% sin internet en el móvil.
+  - Alertas preventivas ante valores dendrométricos anómalos ($DBH > 150\text{ cm}$ o $Altura > 35\text{ m}$).
+- **Formulario Modal Integral (3 Bloques de Datos):**
+  - **Bloque 1: Datos del Proyecto y Titularidad (Paso 1):** Nombre del proyecto, Titular, NIF/CIF, Finca, Provincia, Municipio, Referencia Catastral y Superficie Total de la finca (ha).
+  - **Bloque 2: Parcela y Actuación (Paso 2):** Nombre del rodal, Actuación (Plantación, Densificación o Cerramiento), Especie principal, Superficie muestreada (ha), Edad de la masa y Potencialidad ambiental.
+  - **Bloque 3: Caracterización Manual de Matorral (Montero et al., 2020):** Formación (A12 a A35 / EC_GENERAL), FCC (%), Altura ($h$, dm), FCC objetivo bajo cerramiento (%) y previsualización en vivo de biomasa ($t/\text{ha}$ y $t\text{CO}_2/\text{ha}$).
+- **Puente de Datos e Interoperabilidad:**
+  - **Descarga de archivos:** CSV oficial con cabecera `ID,Especie,DBH,Altura` (UTF-8 con BOM) y libro Excel `.xlsx` local mediante SheetJS.
+  - **Inyección directa en 1 clic:** Vía `localStorage.setItem('idaf_field_pending_import', ...)` con paquete estructurado `{ project, inventory, csvText }`.
+  - **Auto-población en la plataforma (`app.js`):** Al detectar la importación, autocompleta el Paso 1 (proyecto, delimitación provisional de campo si no hay KML aún, memoria provisional si no hay PDF) y el Paso 2 (árboles, matorral completo, densidad), permitiendo desbloquear inmediatamente el Paso 3 para ver proyecciones sin conexión.
+- **Dos Flujos Operativos Soportados:**
+  - **Flujo A (Campo $\rightarrow$ Oficina):** El técnico mide en el monte con el móvil, descarga el CSV a su almacenamiento local y al llegar a la oficina lo arrastra a la plataforma web en su PC.
+  - **Flujo B (100% Móvil / Tablet Standalone):** Instalada en la pantalla de inicio del móvil, el Service Worker cachea la plataforma completa (`field.html` + `index.html`), permitiendo registrar datos, transferir a la calculadora y consultar los resultados y gráficos de carbono directamente en el monte sin cobertura.
+- **Entorno de Ejecución en Windows:**
+  - La ruta del ejecutable Git en este entorno es `& "C:\Program Files\Git\cmd\git.exe"`.
 
