@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>IDAF Campo | Toma de Datos Forestales Offline</title>
+
+  <!-- Configuración PWA y Dispositivos Móviles -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#005027">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="IDAF Campo">
+  <link rel="apple-touch-icon" href="assets/logo_idaf_isotipo.png">
+  <link rel="icon" type="image/png" href="assets/logo_idaf_isotipo.png">
+
+  <!-- Tipografía Corporativa Oficial: Poppins -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome 6 Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+
+  <!-- Hojas de Estilo -->
+  <link rel="stylesheet" href="css/field.css">
+
+  <!-- SheetJS para exportación XLSX local -->
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+</head>
+<body>
+
+  <!-- ENCABEZADO SUPERIOR IDAF -->
+  <header class="field-header">
+    <div class="field-brand">
+      <img src="assets/logo_idaf_isotipo.png" alt="IDAF" class="field-brand-logo">
+      <div>
+        <div class="field-brand-title">IDAF Campo</div>
+        <div class="field-brand-subtitle">Toma de Datos Forestales Offline</div>
+      </div>
+    </div>
+    <div class="field-header-actions">
+      <span id="connection-status-badge" class="status-badge online">
+        <i class="fa-solid fa-wifi"></i> Online
+      </span>
+      <a href="index.html" class="btn-header-link" title="Ir a la Calculadora Web">
+        <i class="fa-solid fa-desktop"></i>
+        <span>Calculadora</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- BARRA DE PARCELA ACTIVA -->
+  <div class="active-plot-bar">
+    <div style="flex: 1; min-width: 0;">
+      <h3 id="active-plot-title" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Rodal 1 - Inventario</h3>
+      <p id="active-plot-subtitle" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Finca Principal • Densificación • Sup. 1.0 ha</p>
+    </div>
+    <div style="display: flex; gap: 6px; flex-shrink: 0;">
+      <button id="btn-edit-active-plot" class="btn btn-sm btn-secondary" title="Editar datos del proyecto, parcela y matorral">
+        <i class="fa-solid fa-pen-to-square"></i> Editar Datos
+      </button>
+      <button id="btn-open-new-plot" class="btn btn-sm btn-primary" title="Crear nueva parcela">
+        <i class="fa-solid fa-plus"></i> Nueva
+      </button>
+    </div>
+  </div>
+
+  <!-- CONTENEDOR PRINCIPAL -->
+  <main class="field-container">
+
+    <!-- SECCIÓN 1: TOMA DE DATOS (MEDICIÓN PIE A PIE) -->
+    <section id="tab-section-measure" class="tab-section active">
+      
+      <!-- Panel de Estadísticas en Vivo -->
+      <div class="live-kpi-grid">
+        <div class="kpi-card highlight">
+          <div class="kpi-title">Pies Medidos</div>
+          <div id="stat-total-trees" class="kpi-value">0 pies</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-title">DBH Medio</div>
+          <div id="stat-mean-dbh" class="kpi-value">0.0 cm</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-title">Altura Media</div>
+          <div id="stat-mean-height" class="kpi-value">0.0 m</div>
+        </div>
+        <div class="kpi-card highlight">
+          <div class="kpi-title">Biomasa Est.</div>
+          <div id="stat-total-biomass" class="kpi-value">0 kg</div>
+        </div>
+      </div>
+
+      <!-- Tarjeta de Entrada de Mediciones -->
+      <div class="input-measurement-card">
+        <div class="section-label">
+          <i class="fa-solid fa-seedling"></i>
+          <span>Especie Forestal:</span>
+          <strong id="current-species-label" style="margin-left: auto; color: #005027; font-size: 12px;">Alcornoque (Quercus suber)</strong>
+        </div>
+
+        <!-- Botonera de Especies Rápidas -->
+        <div id="quick-species-grid" class="species-pills-grid">
+          <!-- Inyectado dinámicamente con las especies top -->
+        </div>
+
+        <!-- Desplegable con todas las especies -->
+        <div class="species-dropdown-row">
+          <select id="select-all-species" class="form-control" title="Seleccionar otra especie"></select>
+        </div>
+
+        <!-- Formulario DBH y Altura -->
+        <div class="section-label">
+          <i class="fa-solid fa-ruler-combined"></i>
+          <span>Medición Dendrométrica:</span>
+        </div>
+
+        <div style="margin-bottom: 10px;">
+          <label style="font-size: 11px; font-weight: 600; color: #64748b;">Código / ID del Árbol:</label>
+          <input type="text" id="input-tree-id" class="form-control field-input-sm" value="ARB_001" placeholder="ARB_001">
+        </div>
+
+        <div class="dendro-inputs-row">
+          <div class="dendro-input-group">
+            <label for="input-tree-dbh">DBH (cm) *</label>
+            <input type="text" inputmode="decimal" id="input-tree-dbh" class="field-input" placeholder="22.5" autocomplete="off">
+          </div>
+          <div class="dendro-input-group">
+            <label for="input-tree-height">Altura (m) *</label>
+            <input type="text" inputmode="decimal" id="input-tree-height" class="field-input" placeholder="6.5" autocomplete="off">
+          </div>
+        </div>
+
+        <button type="button" id="btn-save-tree" class="btn-save-tree">
+          <i class="fa-solid fa-plus-circle"></i>
+          <span>Guardar Árbol (Intro)</span>
+        </button>
+      </div>
+
+      <!-- Tabla de Árboles Registrados -->
+      <div class="tree-list-card">
+        <div class="tree-list-header">
+          <div style="font-weight: 700; color: #005027; font-size: 14px;">
+            <i class="fa-solid fa-list-check"></i> Árboles Registrados
+          </div>
+          <span id="badge-tree-count" class="badge badge-primary">0 registrados</span>
+        </div>
+        <div style="max-height: 280px; overflow-y: auto;">
+          <table class="tree-list-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Especie</th>
+                <th style="text-align: right;">DBH</th>
+                <th style="text-align: right;">Altura</th>
+                <th style="text-align: center;">Acción</th>
+              </tr>
+            </thead>
+            <tbody id="field-tree-list-tbody">
+              <!-- Árboles inyectados dinámicamente -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- SECCIÓN 2: GESTOR DE PARCELAS -->
+    <section id="tab-section-plots" class="tab-section">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+        <h3 style="font-size: 16px; color: #005027; margin: 0;">Historial de Parcelas y Fincas</h3>
+      </div>
+      
+      <div id="plots-card-list">
+        <!-- Tarjetas de parcelas inyectadas dinámicamente -->
+      </div>
+    </section>
+
+    <!-- SECCIÓN 3: EXPORTAR Y TRANSFERIR -->
+    <section id="tab-section-export" class="tab-section">
+      <div class="input-measurement-card">
+        <div class="section-label">
+          <i class="fa-solid fa-file-export"></i>
+          <span>Exportación y Enlace con Calculadora IDAF</span>
+        </div>
+
+        <div id="export-plot-summary-box" style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 14px; margin-bottom: 16px;">
+          <!-- Resumen de parcela activa -->
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 12px;">
+          <button id="btn-export-csv" class="btn btn-primary btn-block">
+            <i class="fa-solid fa-file-csv"></i>
+            <span>Descargar CSV Oficial (Paso 2)</span>
+          </button>
+
+          <button id="btn-export-xlsx" class="btn btn-secondary btn-block">
+            <i class="fa-solid fa-file-excel" style="color: #15803d;"></i>
+            <span>Descargar Excel (.xlsx)</span>
+          </button>
+
+          <button id="btn-send-to-platform" class="btn btn-accent btn-block" style="margin-top: 6px;">
+            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            <span>Cargar directamente en la Calculadora IDAF</span>
+          </button>
+        </div>
+
+        <div style="margin-top: 18px; padding: 12px; background-color: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; font-size: 12px; color: #166534; line-height: 1.5;">
+          <i class="fa-solid fa-circle-check"></i>
+          <strong>Compatibilidad 100% Verificada:</strong> El archivo generado contiene exactamente las columnas <code>ID,Especie,DBH,Altura</code> validadas según el informe metodológico D6.2 (Ruiz-Peinado et al., 2012).
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- BARRA DE NAVEGACIÓN INFERIOR MÓVIL (TABS) -->
+  <nav class="mobile-nav-bar">
+    <button class="mobile-nav-item active" data-tab="measure">
+      <i class="fa-solid fa-clipboard-list"></i>
+      <span>Medir</span>
+    </button>
+    <button class="mobile-nav-item" data-tab="plots">
+      <i class="fa-solid fa-layer-group"></i>
+      <span>Parcelas</span>
+    </button>
+    <button class="mobile-nav-item" data-tab="export">
+      <i class="fa-solid fa-file-export"></i>
+      <span>Exportar</span>
+    </button>
+  </nav>
+
+  <!-- MODAL: DATOS DEL PROYECTO, PARCELA Y MATORRAL -->
+  <div id="modal-new-plot" class="modal-overlay" style="display: none;">
+    <div class="modal-content" style="max-width: 580px;">
+      <div class="modal-header">
+        <h4 id="modal-plot-title" style="margin: 0; color: #005027; font-size: 16px;">
+          <i class="fa-solid fa-folder-tree"></i> Datos del Proyecto, Parcela y Matorral
+        </h4>
+        <button id="btn-close-new-plot-modal" style="background: none; border: none; font-size: 20px; color: #64748b; cursor: pointer;">&times;</button>
+      </div>
+      <form id="form-new-plot" class="modal-body" style="padding: 18px;">
+        <input type="hidden" id="edit-plot-id" value="">
+
+        <!-- BLOQUE 1: DATOS GENERALES DEL PROYECTO (PASO 1) -->
+        <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 14px; margin-bottom: 16px;">
+          <div style="font-size: 13px; font-weight: 700; color: #005027; margin-bottom: 10px; display: flex; align-items: center; gap: 6px;">
+            <i class="fa-solid fa-file-signature"></i> 1. Datos del Proyecto y Titularidad (Paso 1)
+          </div>
+          <div class="form-group">
+            <label for="new-plot-project-name">Nombre del Proyecto</label>
+            <input type="text" id="new-plot-project-name" class="form-control" placeholder="Ej. Proyecto de Absorción Finca La Dehesilla">
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+            <div class="form-group">
+              <label for="new-plot-owner">Titular / Propietario</label>
+              <input type="text" id="new-plot-owner" class="form-control" placeholder="Ej. Agropecuaria del Sur S.L.">
+            </div>
+            <div class="form-group">
+              <label for="new-plot-nif">NIF / CIF</label>
+              <input type="text" id="new-plot-nif" class="form-control" placeholder="Ej. B12345678">
+            </div>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+            <div class="form-group">
+              <label for="new-plot-finca">Nombre de la Finca *</label>
+              <input type="text" id="new-plot-finca" class="form-control" placeholder="Ej. Finca La Dehesilla" required>
+            </div>
+            <div class="form-group">
+              <label for="new-plot-total-estate-area">Superficie Total Finca (ha) *</label>
+              <input type="number" step="0.1" id="new-plot-total-estate-area" class="form-control" value="25.0" required>
+            </div>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+            <div class="form-group">
+              <label for="new-plot-province">Provincia</label>
+              <input type="text" id="new-plot-province" class="form-control" value="Huelva" placeholder="Ej. Huelva, Córdoba...">
+            </div>
+            <div class="form-group">
+              <label for="new-plot-municipality">Municipio</label>
+              <input type="text" id="new-plot-municipality" class="form-control" value="Aracena" placeholder="Ej. Aracena...">
+            </div>
+          </div>
+          <div class="form-group" style="margin-bottom: 0;">
+            <label for="new-plot-cadastral">Referencia Catastral (opcional)</label>
+            <input type="text" id="new-plot-cadastral" class="form-control" placeholder="Ej. 21007A005000120000FP">
+          </div>
+        </div>
+
+        <!-- BLOQUE 2: DATOS DEL RODAL Y ACTUACIÓN (PASO 2) -->
+        <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 14px; margin-bottom: 16px;">
+          <div style="font-size: 13px; font-weight: 700; color: #005027; margin-bottom: 10px; display: flex; align-items: center; gap: 6px;">
+            <i class="fa-solid fa-tree"></i> 2. Parcela de Muestreo y Actuación (Paso 2)
+          </div>
+          <div class="form-group">
+            <label for="new-plot-name">Nombre de la Parcela / Rodal *</label>
+            <input type="text" id="new-plot-name" class="form-control" placeholder="Ej. Parcela 1 - Alcornocal" required>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+            <div class="form-group">
+              <label for="new-plot-actuacion">Tipo de Actuación *</label>
+              <select id="new-plot-actuacion" class="form-control">
+                <option value="densificacion" selected>Densificación (Masa abierta)</option>
+                <option value="cerramiento">Cerramiento (Exclusión)</option>
+                <option value="plantacion">Plantación (Desarbolado)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="new-plot-species">Especie Principal *</label>
+              <select id="new-plot-species" class="form-control">
+                <option value="quercus_suber" selected>Quercus suber (Alcornoque)</option>
+                <option value="quercus_ilex">Quercus ilex (Encina)</option>
+                <option value="pinus_pinea">Pinus pinea (Pino piñonero)</option>
+                <option value="quercus_faginea">Quercus faginea (Quejigo)</option>
+                <option value="castanea_sativa">Castanea sativa (Castaño)</option>
+                <option value="ceratonia_siliqua">Ceratonia siliqua (Algarrobo)</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+            <div class="form-group">
+              <label for="new-plot-area">Superficie Muestreada (ha) *</label>
+              <input type="number" step="0.01" id="new-plot-area" class="form-control" value="1.0" required>
+            </div>
+            <div class="form-group">
+              <label for="new-plot-age">Edad de la Masa (años)</label>
+              <input type="number" id="new-plot-age" class="form-control" value="45">
+            </div>
+          </div>
+
+          <div class="form-group" style="margin-bottom: 0;">
+            <label for="new-plot-pot">Potencialidad Bioclimática (0.50 - 1.20)</label>
+            <input type="number" step="0.05" id="new-plot-pot" class="form-control" value="0.85">
+          </div>
+        </div>
+
+        <!-- BLOQUE 3: CARACTERIZACIÓN MANUAL DE MATORRAL (MONTERO ET AL., 2020) -->
+        <div style="background: #f0fdf4; border: 1.5px solid #bbf7d0; border-radius: 10px; padding: 14px;">
+          <div style="font-size: 13px; font-weight: 700; color: #166534; margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between;">
+            <span style="display: flex; align-items: center; gap: 6px;">
+              <i class="fa-solid fa-seedling"></i> 3. Caracterización de Matorral (Montero et al., 2020)
+            </span>
+            <span id="modal-shrub-calc-badge" class="badge badge-primary">Calculando...</span>
+          </div>
+
+          <div class="form-group">
+            <label for="new-plot-shrub-type">Tipo de Matorral (Agrupación D6.2)</label>
+            <select id="new-plot-shrub-type" class="form-control">
+              <option value="A19" selected>A19 – Mancha mediterránea</option>
+              <option value="A18">A18 – Lentiscares</option>
+              <option value="A22">A22 – Brezales</option>
+              <option value="A25">A25 – Jarales</option>
+              <option value="A17">A17 – Coscojares</option>
+              <option value="A15">A15 – Arbustedos Quercus ilex</option>
+              <option value="A12">A12 – Setos, bardas, orlas</option>
+              <option value="A13">A13 – Bujedos</option>
+              <option value="A16">A16 – Sabinares, enebrales</option>
+              <option value="A19A">A19A – Garrigas</option>
+              <option value="A23">A23 – Leguminosas retamoideas</option>
+              <option value="A24">A24 – Leguminosas aulagoides</option>
+              <option value="A26">A26 – Tomillares</option>
+              <option value="A27">A27 – Cubiertas mixtas</option>
+              <option value="A35">A35 – Atochares, espartizales</option>
+              <option value="EC_GENERAL">EC_GENERAL – Matorral mediterráneo general</option>
+            </select>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+            <div class="form-group">
+              <label for="new-plot-shrub-fcc">FCC Matorral (%)</label>
+              <input type="number" id="new-plot-shrub-fcc" class="form-control" value="20" min="0" max="100" step="5">
+            </div>
+            <div class="form-group">
+              <label for="new-plot-shrub-height">Altura Matorral (dm)</label>
+              <input type="number" step="0.5" id="new-plot-shrub-height" class="form-control" value="8.0" min="1" max="50">
+            </div>
+          </div>
+
+          <div id="new-plot-shrub-target-container" class="form-group" style="margin-bottom: 0;">
+            <label for="new-plot-shrub-fcc-target">FCC Objetivo bajo Cerramiento (%)</label>
+            <input type="number" id="new-plot-shrub-fcc-target" class="form-control" value="55" min="10" max="100" step="5">
+            <span style="font-size: 11px; color: #166534;">Meta de cobertura tras 12 años sin ramoneo</span>
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 10px; margin-top: 16px;">
+          <button type="button" id="btn-cancel-new-plot" class="btn btn-secondary" style="flex: 1;" onclick="document.getElementById('modal-new-plot').style.display='none'">Cancelar</button>
+          <button type="submit" id="btn-submit-plot-form" class="btn btn-primary" style="flex: 2;">
+            <i class="fa-solid fa-floppy-disk"></i> Guardar Datos
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- NOTIFICACIÓN FLOTANTE (TOAST) -->
+  <div id="field-toast" class="field-toast"></div>
+
+  <!-- Controlador Modular ES Modules -->
+  <script type="module" src="js/field/fieldApp.js"></script>
+</body>
+</html>

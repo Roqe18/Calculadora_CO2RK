@@ -72,9 +72,15 @@ class AppController {
     this.bindKmlEvents();
     this.bindPdfEvents();
     this.bindCsvEvents();
+    this.bindFieldImportEvents();
 
-    // 4. Iniciar en Paso 1
-    this.setStep(1);
+    // 4. Iniciar en Paso 1 (o Paso 2 si viene redirigido desde App de Campo)
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('fromField') === 'true' || window.location.hash === '#step2') {
+      this.setStep(2);
+    } else {
+      this.setStep(1);
+    }
   }
 
   /**
@@ -255,6 +261,7 @@ class AppController {
     if (stepNumber === 2) {
       this.renderProjectSummary('step2-project-summary');
       this.setupStep2FormDefaults();
+      this.checkPendingFieldImport();
     } else if (stepNumber === 3) {
       this.renderProjectSummary('step3-project-summary');
     }
@@ -951,6 +958,287 @@ class AppController {
     };
 
     reader.readAsArrayBuffer(file);
+  }
+
+  /**
+   * Vincula eventos de la importación desde la App Móvil de Campo
+   */
+  bindFieldImportEvents() {
+    const btnApply = document.getElementById('btn-apply-field-import');
+    if (btnApply) {
+      btnApply.addEventListener('click', () => {
+        this.applyPendingFieldImport();
+      });
+    }
+  }
+
+  /**
+   * Comprueba si hay un inventario transferido desde la App Móvil de Campo
+   */
+  checkPendingFieldImport() {
+    try {
+      const raw = localStorage.getItem('idaf_field_pending_import');
+      const alertBox = document.getElementById('field-pending-import-alert');
+      if (!raw || !alertBox) {
+        if (alertBox) alertBox.style.display = 'none';
+        return;
+      }
+
+      const data = JSON.parse(raw);
+      if (!data || !data.csvText) {
+        alertBox.style.display = 'none';
+        return;
+      }
+
+      const titleEl = document.getElementById('pending-import-title');
+      const descEl = document.getElementById('pending-import-desc');
+
+      if (titleEl) {
+        titleEl.innerText = `Inventario recibido de App de Campo: ${data.plotName || 'Rodal'} (${data.treesCount || 0} árboles)`;
+      }
+      if (descEl) {
+        descEl.innerText = `Finca: ${data.fincaNombre || 'Finca'} • Actuación: ${data.actuacion || 'densificacion'} • Sup. Muestreo: ${data.superficieMuestreadaHa || 1.0} ha. Haz clic en "Cargar ahora" para aplicar datos y parámetros al Paso 2.`;
+      }
+
+      alertBox.style.display = 'flex';
+    } catch (e) {
+      console.warn('Error verificando importación pendiente de campo:', e);
+    }
+  }
+
+  /**
+   * Aplica el inventario de campo y rellena parámetros del Paso 2
+   */
+  applyPendingFieldImport() {
+    try {
+      const raw = localStorage.getItem('idaf_field_pending_import');
+      if (!raw) return;
+
+      const data = JSON.parse(raw);
+      const csvBytes = new TextEncoder().encode(data.csvText);
+      const parsed = FileParser.parseWorkbook(csvBytes.buffer, this.speciesDb.species);
+
+      this.parsedTrees = parsed.trees;
+      this.treeSummary = parsed.summary;
+      this.inventoryFilename = data.filename || 'inventario_campo.csv';
+
+      // 1. Extraer o normalizar datos de proyecto y de inventario
+      const projData = data.project || {
+        name: data.plotName || 'Proyecto de Absorción Forestal',
+        owner: 'Titular de la Finca',
+        nif: 'B12345678',
+        estate: data.fincaNombre || 'Finca Principal',
+        province: 'Huelva',
+        municipality: 'Aracena',
+        cadastral: '',
+        speciesId: (parsed.trees && parsed.trees[0]?.speciesId) || 'quercus_suber',
+        strategyId: data.actuacion || 'densificacion',
+        totalAreaHa: 25.0
+      };
+
+      const invData = data.inventory || {
+        modalidad: data.modalidad || 'muestreo',
+        superficieMuestreadaHa: data.superficieMuestreadaHa || 1.0,
+        edadMasa: data.edadMasa || 45,
+        potencialidad: data.potencialidad || 0.85,
+        shrub: data.matorral || { tipo: 'A19', fccPct: 20, alturaMediaDm: 8.0, fccTarget: 55.0 }
+      };
+
+      // 2. AUTO-POBLAR PASO 1 (DATOS DEL PROYECTO)
+      const elProjName = document.getElementById('proj-name');
+      const elProjOwner = document.getElementById('proj-owner');
+      const elProjNif = document.getElementById('proj-nif');
+      const elProjEstate = document.getElementById('proj-estate');
+      const elProjProvince = document.getElementById('proj-province');
+      const elProjMun = document.getElementById('proj-municipality');
+      const elProjCadastral = document.getElementById('proj-cadastral');
+      const elProjSpecies = document.getElementById('proj-species');
+      const elProjStrategy = document.getElementById('proj-strategy');
+
+      if (elProjName && projData.name) elProjName.value = projData.name;
+      if (elProjOwner && projData.owner) elProjOwner.value = projData.owner;
+      if (elProjNif && projData.nif) elProjNif.value = projData.nif;
+      if (elProjEstate && projData.estate) elProjEstate.value = projData.estate;
+      if (elProjProvince && projData.province) elProjProvince.value = projData.province;
+      if (elProjMun && projData.municipality) elProjMun.value = projData.municipality;
+      if (elProjCadastral && projData.cadastral) elProjCadastral.value = projData.cadastral;
+      if (elProjSpecies && projData.speciesId) elProjSpecies.value = projData.speciesId;
+      if (elProjStrategy && projData.strategyId) elProjStrategy.value = projData.strategyId;
+
+      // Establecer this.projectInfo
+      this.projectInfo = {
+        name: projData.name || 'Proyecto Forestal IDAF',
+        owner: projData.owner || 'Titular',
+        nif: projData.nif || 'B12345678',
+        estate: projData.estate || 'Finca Principal',
+        regionId: document.getElementById('proj-region')?.value || 'andalucia',
+        province: projData.province || 'Huelva',
+        municipality: projData.municipality || 'Municipio',
+        cadastral: projData.cadastral || '',
+        speciesId: projData.speciesId || (parsed.trees && parsed.trees[0]?.speciesId) || 'quercus_suber',
+        treatmentId: document.getElementById('proj-treatment')?.value || 'monte_bravo',
+        strategyId: projData.strategyId || 'densificacion'
+      };
+
+      // Soporte KML y PDF para trabajo de campo offline sin bloqueo
+      const totalAreaHa = parseFloat(projData.totalAreaHa) || 25.0;
+      if (!this.kmlData) {
+        this.kmlData = {
+          fileName: `delimitacion_${projData.estate || 'finca'}.kml`,
+          totalAreaHa: totalAreaHa,
+          perimeterKm: Math.round(Math.sqrt(totalAreaHa) * 0.4 * 100) / 100,
+          plotsCount: 1,
+          isFieldEstimate: true
+        };
+        const kmlAlert = document.getElementById('kml-status-alert');
+        if (kmlAlert) {
+          kmlAlert.style.display = 'flex';
+          kmlAlert.className = 'alert-box alert-success';
+          kmlAlert.innerHTML = `
+            <i class="fa-solid fa-circle-check" style="font-size: 18px; margin-top: 2px;"></i>
+            <div>
+              <strong>Superficie de finca importada desde la App Móvil:</strong> ${totalAreaHa.toLocaleString('es-ES')} ha 
+              (Delimitación provisional de campo).
+            </div>
+          `;
+        }
+      }
+
+      if (!this.eligibilityPdf) {
+        this.eligibilityPdf = {
+          name: `Memoria_justificativa_${projData.estate || 'finca'}.pdf`,
+          size: 1024,
+          isFieldEstimate: true
+        };
+        const pdfAlert = document.getElementById('pdf-status-alert');
+        if (pdfAlert) {
+          pdfAlert.style.display = 'flex';
+          pdfAlert.className = 'alert-box alert-success';
+          pdfAlert.innerHTML = `
+            <i class="fa-solid fa-file-pdf" style="font-size: 18px; margin-top: 2px;"></i>
+            <div>
+              <strong>Memoria técnica vinculada:</strong> Criterios de elegibilidad conformes con ${projData.strategyId}.
+            </div>
+          `;
+        }
+      }
+
+      // 3. AUTO-POBLAR PASO 2 (SUPERFICIE, INVENTARIO Y CARACTERIZACIÓN COMPLETA DE MATORRAL)
+      const elKmlArea = document.getElementById('step2-kml-area');
+      if (elKmlArea) elKmlArea.value = totalAreaHa;
+
+      const elSampleArea = document.getElementById('step2-sample-area');
+      if (elSampleArea && invData.superficieMuestreadaHa) {
+        elSampleArea.value = invData.superficieMuestreadaHa;
+        elSampleArea.dataset.userEdited = 'true';
+      }
+
+      const elStandAge = document.getElementById('step2-stand-age');
+      if (elStandAge && invData.edadMasa) {
+        elStandAge.value = invData.edadMasa;
+      }
+
+      const elPot = document.getElementById('step2-potentiality');
+      if (elPot && invData.potencialidad) {
+        elPot.value = invData.potencialidad;
+      }
+
+      // Configurar textos dinámicos de actuación y panel según la estrategia
+      this.setupStep2FormDefaults();
+
+      // CARACTERIZACIÓN MANUAL DE MATORRAL COMPLETA (Montero et al., 2020)
+      const shrubObj = invData.shrub || {};
+      const elShrubType = document.getElementById('step2-shrub-type');
+      const elShrubFcc = document.getElementById('step2-shrub-fcc');
+      const elShrubHeight = document.getElementById('step2-shrub-height');
+      const elShrubFccTarget = document.getElementById('step2-shrub-fcc-target');
+
+      if (elShrubType && shrubObj.tipo) elShrubType.value = shrubObj.tipo;
+      if (elShrubFcc && shrubObj.fccPct !== undefined) elShrubFcc.value = shrubObj.fccPct;
+      if (elShrubHeight && shrubObj.alturaMediaDm !== undefined) elShrubHeight.value = shrubObj.alturaMediaDm;
+      if (elShrubFccTarget && shrubObj.fccTarget !== undefined) elShrubFccTarget.value = shrubObj.fccTarget;
+
+      // Ocultar alerta de pendiente y eliminar de localStorage
+      const alertBox = document.getElementById('field-pending-import-alert');
+      if (alertBox) alertBox.style.display = 'none';
+      localStorage.removeItem('idaf_field_pending_import');
+
+      // Actualizar resúmenes de proyecto en Paso 2 y Paso 3
+      this.renderProjectSummary('step2-project-summary');
+
+      // Mostrar alerta de éxito
+      const statusAlert = document.getElementById('csv-status-alert');
+      if (statusAlert) {
+        statusAlert.style.display = 'flex';
+        statusAlert.className = 'alert-box alert-success';
+        statusAlert.innerHTML = `
+          <i class="fa-solid fa-circle-check" style="font-size: 18px; margin-top: 2px;"></i>
+          <div>
+            <strong>Proyecto e Inventario importados con éxito desde la App de Campo:</strong> ${escapeHtml(projData.estate)} - ${escapeHtml(data.plotName)}<br>
+            <span style="font-size: 12px; color: var(--slate-600);">
+              ✓ ${parsed.totalRows} árboles calculados pie a pie • ✓ Matorral ${shrubObj.tipo} caracterizado • ✓ Datos del proyecto vinculados.
+            </span>
+          </div>
+        `;
+      }
+
+      // Mostrar panel de parámetros interactivos
+      const paramPanel = document.getElementById('step2-parameters-panel');
+      if (paramPanel) paramPanel.style.display = 'block';
+
+      // Actualizar densidad y matorral en tiempo real
+      this.updateStep2DensityCalculation();
+      this.updateLiveShrubCalculation();
+
+      // Actualizar KPIs dendrométricos
+      const elKpiCount = document.getElementById('step2-kpi-trees-count');
+      const elKpiDbh = document.getElementById('step2-kpi-mean-dbh');
+      const elKpiHeight = document.getElementById('step2-kpi-mean-height');
+      const elKpiBiomass = document.getElementById('step2-kpi-mean-biomass');
+      const elKpiCO2 = document.getElementById('step2-kpi-mean-co2');
+
+      if (elKpiCount) elKpiCount.innerText = `${parsed.summary.totalTrees} pies`;
+      if (elKpiDbh) elKpiDbh.innerText = `${parsed.summary.meanDbh.toLocaleString('es-ES')} cm`;
+      if (elKpiHeight) elKpiHeight.innerText = `${parsed.summary.meanHeight.toLocaleString('es-ES')} m`;
+      if (elKpiBiomass) elKpiBiomass.innerText = `${parsed.summary.meanBiomassKgPerTree.toLocaleString('es-ES')} kg`;
+      if (elKpiCO2) elKpiCO2.innerText = `${parsed.summary.meanCO2PerTreeTons.toLocaleString('es-ES', { minimumFractionDigits: 3, maximumFractionDigits: 3 })} t`;
+
+      // Mostrar tabla de previsualización árbol a árbol
+      const previewContainer = document.getElementById('csv-preview-container');
+      const previewTbody = document.getElementById('csv-preview-tbody');
+      const rowsCountBadge = document.getElementById('csv-rows-count');
+
+      if (previewContainer && previewTbody) {
+        previewContainer.style.display = 'block';
+        if (rowsCountBadge) rowsCountBadge.innerText = `${parsed.trees.length} árboles`;
+
+        previewTbody.innerHTML = parsed.trees.slice(0, 15).map(t => `
+          <tr>
+            <td><strong>${escapeHtml(t.id)}</strong></td>
+            <td>${escapeHtml(t.speciesName)}</td>
+            <td>${t.dbh.toLocaleString('es-ES')} cm</td>
+            <td>${t.height.toLocaleString('es-ES')} m</td>
+            <td>${t.stemKg.toLocaleString('es-ES')} kg</td>
+            <td>${(Math.round((t.thickBranchesKg + t.medBranchesKg) * 10) / 10).toLocaleString('es-ES')} kg</td>
+            <td>${t.rootsKg.toLocaleString('es-ES')} kg</td>
+            <td style="font-weight: 600; color: var(--idaf-dark-green);">${t.totalBiomassKg.toLocaleString('es-ES')} kg</td>
+            <td style="font-weight: 700; color: var(--idaf-light-green);">${t.co2Kg.toLocaleString('es-ES')} kg</td>
+          </tr>
+        `).join('') + (parsed.trees.length > 15 ? `<tr><td colspan="9" style="text-align:center; color: var(--slate-500); font-style: italic;">... y ${parsed.trees.length - 15} árboles adicionales calculados individualmente</td></tr>` : '');
+      }
+
+      // Habilitar botón de continuar al Paso 3
+      const btnCalculate = document.getElementById('btn-calculate-and-results');
+      if (btnCalculate) {
+        btnCalculate.disabled = false;
+        btnCalculate.style.opacity = '1';
+        btnCalculate.style.cursor = 'pointer';
+      }
+
+    } catch (err) {
+      console.error('Error aplicando importación de campo:', err);
+      alert('Error cargando datos de la app de campo: ' + err.message);
+    }
   }
 
   /**

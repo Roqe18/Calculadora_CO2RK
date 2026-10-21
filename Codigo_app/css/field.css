@@ -1,0 +1,662 @@
+/* ==========================================================================
+   IDAF CAMPO - ESTILOS PWA MÓVIL TÁCTIL (ALTO CONTRASTE Y ERGONOMÍA SOLAR)
+   Colores Corporativos: Pantone 357 C (#005027) & Pantone 368 C (#76B72B)
+   ========================================================================== */
+
+:root {
+  --idaf-dark-green: #005027;
+  --idaf-accent-green: #76B72B;
+  --idaf-light-bg: #f7faf5;
+  --idaf-surface: #ffffff;
+  --idaf-border: #e2e8f0;
+  --idaf-text-dark: #1e293b;
+  --idaf-text-muted: #64748b;
+  --idaf-danger: #dc2626;
+  --idaf-info: #0284c7;
+  --idaf-warning: #d97706;
+  --font-family: 'Poppins', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --nav-height: 64px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: var(--idaf-light-bg);
+  color: var(--idaf-text-dark);
+  line-height: 1.4;
+  padding-bottom: calc(var(--nav-height) + 24px);
+  min-height: 100vh;
+  user-select: none;
+}
+
+/* Encabezado Superior */
+.field-header {
+  background-color: var(--idaf-dark-green);
+  color: #ffffff;
+  padding: 12px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.field-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.field-brand-logo {
+  height: 38px;
+  width: auto;
+  filter: brightness(0) invert(1);
+}
+
+.field-brand-title {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.field-brand-subtitle {
+  font-size: 11px;
+  color: #e2e8f0;
+  font-weight: 400;
+}
+
+.field-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-header-link {
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #ffffff;
+  border-radius: 8px;
+  padding: 6px 10px;
+  font-size: 12px;
+  font-weight: 500;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: background 0.2s;
+}
+
+.btn-header-link:hover, .btn-header-link:active {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+/* Badge de Estado de Conexión */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.status-badge.online {
+  background-color: rgba(118, 183, 43, 0.25);
+  color: #dcfce7;
+}
+
+.status-badge.offline {
+  background-color: #fef08a;
+  color: #854d0e;
+}
+
+/* Barra Informativa de Parcela Activa */
+.active-plot-bar {
+  background-color: #ffffff;
+  border-bottom: 2px solid var(--idaf-border);
+  padding: 10px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.active-plot-bar h3 {
+  font-size: 15px;
+  color: var(--idaf-dark-green);
+  font-weight: 700;
+}
+
+.active-plot-bar p {
+  font-size: 12px;
+  color: var(--idaf-text-muted);
+}
+
+/* Contenedor Principal */
+.field-container {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 14px;
+}
+
+/* Pestañas / Secciones */
+.tab-section {
+  display: none;
+}
+
+.tab-section.active {
+  display: block;
+  animation: fadeIn 0.2s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Panel de Estadísticas en Vivo (KPIs) */
+.live-kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+@media (min-width: 480px) {
+  .live-kpi-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.kpi-card {
+  background-color: var(--idaf-surface);
+  border: 1px solid var(--idaf-border);
+  border-radius: 10px;
+  padding: 10px;
+  text-align: center;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.kpi-card.highlight {
+  border-color: var(--idaf-accent-green);
+  background-color: #f0fdf4;
+}
+
+.kpi-card .kpi-title {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--idaf-text-muted);
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.kpi-card .kpi-value {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--idaf-dark-green);
+}
+
+/* Tarjeta de Entrada de Mediciones */
+.input-measurement-card {
+  background-color: var(--idaf-surface);
+  border: 1px solid var(--idaf-border);
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+}
+
+.section-label {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--idaf-dark-green);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Botonera de Especies Rápidas */
+.species-pills-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+@media (min-width: 440px) {
+  .species-pills-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.btn-species-pill {
+  background-color: #f8fafc;
+  border: 2px solid var(--idaf-border);
+  border-radius: 10px;
+  padding: 10px 8px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  min-height: 52px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn-species-pill .sp-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--idaf-text-dark);
+  line-height: 1.2;
+}
+
+.btn-species-pill .sp-sci {
+  font-size: 10px;
+  color: var(--idaf-text-muted);
+  font-style: italic;
+}
+
+.btn-species-pill:active, .btn-species-pill.active {
+  background-color: var(--idaf-dark-green);
+  border-color: var(--idaf-dark-green);
+  box-shadow: 0 2px 8px rgba(0, 80, 39, 0.25);
+}
+
+.btn-species-pill.active .sp-name,
+.btn-species-pill.active .sp-sci {
+  color: #ffffff;
+}
+
+.species-dropdown-row {
+  margin-bottom: 16px;
+}
+
+/* Campos de DBH y Altura */
+.dendro-inputs-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.dendro-input-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.dendro-input-group label {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--idaf-dark-green);
+  margin-bottom: 4px;
+}
+
+.field-input {
+  width: 100%;
+  font-family: var(--font-family);
+  font-size: 22px;
+  font-weight: 700;
+  text-align: center;
+  padding: 12px;
+  border: 2px solid #94a3b8;
+  border-radius: 10px;
+  background-color: #ffffff;
+  color: var(--idaf-dark-green);
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  min-height: 54px;
+}
+
+.field-input:focus {
+  border-color: var(--idaf-dark-green);
+  box-shadow: 0 0 0 3px rgba(0, 80, 39, 0.2);
+}
+
+.field-input-sm {
+  font-size: 15px;
+  font-weight: 600;
+  padding: 8px 10px;
+  min-height: 42px;
+  text-align: left;
+}
+
+/* Botón Gigante "Guardar Árbol" */
+.btn-save-tree {
+  width: 100%;
+  background: linear-gradient(135deg, var(--idaf-dark-green) 0%, #006833 100%);
+  color: #ffffff;
+  border: none;
+  border-radius: 12px;
+  padding: 16px;
+  font-size: 17px;
+  font-weight: 700;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 80, 39, 0.3);
+  transition: transform 0.1s, background-color 0.15s;
+  min-height: 56px;
+}
+
+.btn-save-tree:active {
+  transform: scale(0.98);
+  background: #003e1e;
+}
+
+/* Listado de Árboles Medidos */
+.tree-list-card {
+  background-color: var(--idaf-surface);
+  border: 1px solid var(--idaf-border);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.tree-list-header {
+  padding: 12px 16px;
+  background-color: #f8fafc;
+  border-bottom: 1px solid var(--idaf-border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.tree-list-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.tree-list-table th {
+  background-color: #f1f5f9;
+  color: var(--idaf-text-muted);
+  font-weight: 600;
+  padding: 8px 10px;
+  text-align: left;
+  border-bottom: 1px solid var(--idaf-border);
+}
+
+.tree-list-table td {
+  padding: 10px;
+  border-bottom: 1px solid #f1f5f9;
+  vertical-align: middle;
+}
+
+.btn-delete-tree {
+  background: none;
+  border: none;
+  color: #ef4444;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 6px 10px;
+  border-radius: 6px;
+}
+
+.btn-delete-tree:hover, .btn-delete-tree:active {
+  background-color: #fee2e2;
+}
+
+/* Gestión de Parcelas */
+.plot-card {
+  background-color: var(--idaf-surface);
+  border: 2px solid var(--idaf-border);
+  border-radius: 12px;
+  padding: 14px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.plot-card.active-plot-card {
+  border-color: var(--idaf-dark-green);
+  background-color: #f0fdf4;
+}
+
+.plot-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 8px;
+}
+
+.plot-card-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  font-size: 12px;
+  color: var(--idaf-text-muted);
+  margin-bottom: 10px;
+}
+
+.plot-card-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+/* Barra de Navegación Inferior Móvil */
+.mobile-nav-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: var(--nav-height);
+  background-color: #ffffff;
+  border-top: 2px solid var(--idaf-border);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  z-index: 1000;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.08);
+}
+
+.mobile-nav-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: var(--idaf-text-muted);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-family);
+  font-size: 11px;
+  font-weight: 500;
+  transition: color 0.15s;
+  padding: 6px 0;
+}
+
+.mobile-nav-item i {
+  font-size: 20px;
+  margin-bottom: 3px;
+}
+
+.mobile-nav-item.active {
+  color: var(--idaf-dark-green);
+  font-weight: 700;
+}
+
+.mobile-nav-item.active i {
+  transform: translateY(-2px);
+  color: var(--idaf-dark-green);
+}
+
+/* Botones Genéricos */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 16px;
+  border-radius: 10px;
+  font-family: var(--font-family);
+  font-size: 14px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  min-height: 48px;
+}
+
+.btn-primary {
+  background-color: var(--idaf-dark-green);
+  color: #ffffff;
+}
+
+.btn-accent {
+  background-color: var(--idaf-accent-green);
+  color: #ffffff;
+}
+
+.btn-secondary {
+  background-color: #e2e8f0;
+  color: var(--idaf-text-dark);
+}
+
+.btn-danger {
+  background-color: #fee2e2;
+  color: var(--idaf-danger);
+}
+
+.btn-block {
+  width: 100%;
+}
+
+.btn-sm {
+  padding: 6px 10px;
+  font-size: 12px;
+  min-height: 34px;
+}
+
+.badge {
+  display: inline-block;
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.badge-primary {
+  background-color: #dcfce7;
+  color: var(--idaf-dark-green);
+}
+
+.badge-secondary {
+  background-color: #f1f5f9;
+  color: var(--idaf-text-muted);
+}
+
+/* Notificación Flotante (Toast) */
+.field-toast {
+  position: fixed;
+  bottom: calc(var(--nav-height) + 16px);
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background-color: #1e293b;
+  color: #ffffff;
+  padding: 12px 20px;
+  border-radius: 24px;
+  font-size: 13px;
+  font-weight: 600;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s, transform 0.2s;
+  z-index: 2000;
+  max-width: 90%;
+  text-align: center;
+}
+
+.field-toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.field-toast.success {
+  background-color: var(--idaf-dark-green);
+  border: 1px solid var(--idaf-accent-green);
+}
+
+.field-toast.error {
+  background-color: #b91c1c;
+}
+
+.field-toast.info {
+  background-color: #0369a1;
+}
+
+/* Modal */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  z-index: 1500;
+  backdrop-filter: blur(2px);
+}
+
+.modal-content {
+  background-color: #ffffff;
+  border-radius: 16px;
+  max-width: 520px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.modal-header {
+  padding: 16px;
+  border-bottom: 1px solid var(--idaf-border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-body {
+  padding: 16px;
+}
+
+.form-group {
+  margin-bottom: 14px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--idaf-text-dark);
+  margin-bottom: 4px;
+}
+
+.form-control {
+  width: 100%;
+  font-family: var(--font-family);
+  font-size: 14px;
+  padding: 10px 12px;
+  border: 1px solid var(--idaf-border);
+  border-radius: 8px;
+  background-color: #ffffff;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: var(--idaf-dark-green);
+}

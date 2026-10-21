@@ -8,6 +8,13 @@ PORT = 8000
 DIRECTORY = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 
 class CustomHandler(http.server.SimpleHTTPRequestHandler):
+    extensions_map = http.server.SimpleHTTPRequestHandler.extensions_map.copy()
+    extensions_map.update({
+        '.js': 'application/javascript',
+        '.json': 'application/json',
+        '.webmanifest': 'application/manifest+json'
+    })
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, directory=DIRECTORY, **kwargs)
 

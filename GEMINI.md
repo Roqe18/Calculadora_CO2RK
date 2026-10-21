@@ -95,10 +95,14 @@ Calculadora_CO2RK/
 ├── Codigo_app/                   # Aplicación web completa y código fuente
 │   ├── index.html                # Calculadora y visor cartográfico en 3 pasos
 │   ├── login.html                # Pantalla de login Google y modo Demo
+│   ├── field.html                # Módulo móvil PWA offline para toma de datos táctil en campo
+│   ├── manifest.json             # Manifiesto PWA para instalación en móviles Android/iOS
+│   ├── sw.js                     # Service Worker con caché offline completa para campo
 │   ├── assets/                   # Logotipos corporativos IDAF (300 DPI)
-│   ├── css/                      # Hojas de estilo corporativas y print media
+│   ├── css/                      # Hojas de estilo (styles.css, field.css para campo)
 │   ├── data/                     # JSON de especies, normativas y plantillas CSV/XLSX
-│   ├── js/                       # Módulos JS (auth, calculations, models, parsers, ui)
+│   ├── js/                       # Módulos JS (auth, calculations, models, parsers, ui, field)
+│   │   └── field/                # Módulo de campo (fieldApp.js, fieldStorage.js, fieldExporter.js)
 │   ├── docs/                     # Manuales, arquitectura y guías de integración WordPress
 │   └── server/                   # Script dev_server.py enlazado a 127.0.0.1
 │
@@ -106,3 +110,22 @@ Calculadora_CO2RK/
 ├── Documentacion/                # Documento Word D6.2, extractos y tablas JSON/TXT
 └── Manual_identidad_IDAF/        # Manual corporativo PDF y resumen de colores
 ```
+
+---
+
+### 8. Módulo Móvil PWA Offline: IDAF Campo (`field.html`)
+- **Objetivo:** Permitir a los ingenieros y técnicos de campo registrar inventarios pie a pie en montes y dehesas sin cobertura móvil, garantizando persistencia local y exportación 100% compatible con el Paso 2.
+- **Tecnología:** PWA (Progressive Web App) con Service Worker (`sw.js`) y almacenamiento local en `IndexedDB` (`fieldStorage.js`).
+- **Ergonomía solar y táctil a una mano:**
+  - Botones táctiles $\ge 48\text{px}$ de alto contraste solar (Pantone 357 C `#005027` y Pantone 368 C `#76B72B`).
+  - Botonera rápida de especies frecuentes (*Quercus suber*, *Quercus ilex*, *Pinus pinea*, *Quercus faginea*, *Castanea sativa*, *Ceratonia siliqua*) con persistencia de selección.
+  - Teclado numérico decimal directo (`inputmode="decimal"`) para `DBH` y `Altura`.
+  - Auto-incremento de ID de árbol (`ARB_001`, `ARB_002`...).
+  - Cálculo alométrico instantáneo de biomasa (kg) y $\text{tCO}_2$ con Ruiz-Peinado et al. (2012) en cada inserción.
+- **Exportación e Interoperabilidad:**
+  - Descarga directa de archivo CSV oficial con cabecera `ID,Especie,DBH,Altura` y codificación UTF-8 con BOM.
+  - Descarga de libro Excel `.xlsx` local mediante SheetJS.
+  - Formulario modal integral: captura tanto datos del Proyecto (Paso 1: Titular, NIF, Finca, Provincia, Municipio, Ref. Catastral, Sup. Finca) como de Matorral (Montero et al., 2020: Tipo, FCC%, Altura dm, FCC meta) con cálculo en vivo de biomasa de matorral.
+  - Puente directo a la Calculadora IDAF: inyección en 1 clic hacia el Paso 2 vía `localStorage` (`idaf_field_pending_import`), auto-completando automáticamente el Paso 1 (proyecto, KML/PDF provisional de campo) y el Paso 2 (árboles, densidad, matorral completo) para permitir calcular el Paso 3 directamente en el móvil u offline sin bloqueos.
+  - Soporte offline universal: el Service Worker cachea la plataforma completa (`field.html` + `index.html`), permitiendo operar 100% sin internet en el móvil.
+
