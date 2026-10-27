@@ -3,6 +3,7 @@
 .idea/
 *.sublime-project
 *.sublime-workspace
+.fleet/
 
 # Python y caché
 __pycache__/
@@ -15,12 +16,16 @@ dist/
 .venv/
 env/
 venv/
+ENV/
 
 # Sistema operativo
 .DS_Store
 Thumbs.db
 desktop.ini
 *.tmp
+*.bak
+*.swp
+*.swo
 
 # Logs y depuración
 npm-debug.log*
@@ -28,10 +33,37 @@ yarn-debug.log*
 yarn-error.log*
 *.log
 
-# Claves, secretos y variables de entorno locales
+# Variables de entorno y secretos (BLINDAJE TOTAL)
 .env
+.env*
 .env.*
+*.env
+.env.local
+.env.development
+.env.development.local
+.env.test
+.env.test.local
+.env.production
+.env.production.local
+.env.staging
+
+# Claves criptográficas, certificados y tokens
 *.key
 *.pem
-credentials.json
+*.crt
+*.cer
+*.der
+*.pfx
+*.p12
+id_rsa*
+id_ed25519*
 
+# Credenciales de proveedores cloud y APIs
+credentials.json
+client_secret*.json
+service-account*.json
+auth.json
+token.json
+secrets.json
+config.local.js
+settings.local.json
