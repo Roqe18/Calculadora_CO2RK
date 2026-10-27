@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Plataforma Digital para Proyectos de Absorción de Carbono | IDAF</title>
+  <meta http-equiv="refresh" content="0; url=Codigo_app/login.html">
+  <link rel="icon" type="image/png" href="Codigo_app/assets/logo_idaf_isotipo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: linear-gradient(135deg, rgba(0, 80, 39, 0.05) 0%, rgba(118, 183, 43, 0.1) 100%), #f8fafc;
+      color: #1e293b;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      text-align: center;
+    }
+    .card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-top: 5px solid #005027;
+      border-radius: 16px;
+      padding: 36px 30px;
+      max-width: 460px;
+      width: 100%;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
+    }
+    .logo {
+      height: 48px;
+      width: auto;
+      margin-bottom: 20px;
+    }
+    h1 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #005027;
+      margin-bottom: 8px;
+      line-height: 1.35;
+    }
+    p {
+      font-size: 0.9rem;
+      color: #64748b;
+      margin-bottom: 24px;
+    }
+    .spinner {
+      width: 38px;
+      height: 38px;
+      border: 3.5px solid rgba(0, 80, 39, 0.15);
+      border-top-color: #76B72B;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin: 0 auto 20px auto;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    .btn {
+      display: inline-block;
+      background-color: #005027;
+      color: #ffffff;
+      padding: 10px 22px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: background-color 0.2s ease;
+    }
+    .btn:hover {
+      background-color: #00381b;
+    }
+  </style>
+  <script>
+    window.location.replace("Codigo_app/login.html");
+  </script>
+</head>
+<body>
+  <div class="card">
+    <img src="Codigo_app/assets/logo_idaf_horizontal.png" alt="IDAF" class="logo">
+    <div class="spinner"></div>
+    <h1>Plataforma Digital para Proyectos de Absorción de Carbono</h1>
+    <p>Iniciando entorno de cálculo y certificación...</p>
+    <a href="Codigo_app/login.html" class="btn">Entrar a la Plataforma &rarr;</a>
+  </div>
+</body>
+</html>
