@@ -1,4 +1,4 @@
-# Plataforma Digital para Proyectos de Absorción de Carbono (IDAF)
+# Plataforma Digital para Proyectos de Absorción de Carbono (IDAF)..
 
 <p align="center">
   <img src="Codigo_app/assets/logo_idaf_horizontal.png" alt="IDAF Agroforestal" width="380">
